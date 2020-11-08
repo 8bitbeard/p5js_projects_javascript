@@ -48,6 +48,6 @@ function draw() {
 		noLoop();
 	}
 	noStroke();
-	FileList(255, 0, 0);
+	fill(255, 0, 0);
 	rect(food.x, food.y, 1, 1);
 }
