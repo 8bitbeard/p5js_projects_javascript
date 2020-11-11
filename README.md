@@ -5,3 +5,4 @@ You can view/interact with the projects trough the Github Pages. See the list be
 - Fireworks: https://8bitbeard.github.io/p5_projects/fireworks/
 - Game of Life: https://8bitbeard.github.io/p5_projects/game_of_life
 - Snake Game: https://8bitbeard.github.io/p5_projects/snake_game
+- Space Invaders: https://8bitbeard.github.io/p5_projects/space_invaders/
