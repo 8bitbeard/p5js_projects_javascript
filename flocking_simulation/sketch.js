@@ -7,7 +7,7 @@ function setup() {
   alignmentSlider = createSlider(0, 5, 1, 0.1);
   cohesionSlider = createSlider(0, 5, 1, 0.1);
   separationSlider = createSlider(0, 5, 1, 0.1);
-  for (var i = 0; i < 100; i++) {
+  for (var i = 0; i < 3; i++) {
     boids.push(new Boid());
   }
 }
