@@ -10,6 +10,7 @@ class Cell {
 
     this.bee = false;
     this.revealed = false;
+    this.flagged = 0;
   }
 
   countBees() {
@@ -39,9 +40,14 @@ class Cell {
 
   reveal() {
     this.revealed = true;
+    this.flagged = false;
     if (this.neighborCount == 0) {
       this.floodFill();
     }
+  }
+
+  mark() {
+    this.flagged = (this.flagged + 1) % 3;
   }
 
   floodFill() {
@@ -76,6 +82,20 @@ class Cell {
           text(this.neighborCount, this.x + this.w  * 0.5, this.y + this.w - 5);
         }
       }
+    }
+    if (this.flagged === 1) {
+      fill(255);
+      rect(this.x, this.y, this.w, this.w)
+      textAlign(CENTER);
+      fill(255, 0, 0);
+      text("X", this.x + this.w  * 0.5, this.y + this.w - 5);
+    } else if (this.flagged === 2) {
+      fill(255);
+      rect(this.x, this.y, this.w, this.w)
+      textAlign(CENTER);
+      fill(0, 0, 255);
+      text("?", this.x + this.w  * 0.5, this.y + this.w - 5);
+
     }
   }
 }

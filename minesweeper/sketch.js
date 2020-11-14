@@ -7,14 +7,12 @@ function make2DArray(cols, rows) {
 }
 
 var grid;
-var cols = 20;
-var rows = 20;
 w = 20;
 
 var totalBees = 15;
 
 function setup() {
-  createCanvas(201, 201);
+  createCanvas(301, 301);
   cols = floor(width / w);
   rows = floor(height / w);
   grid = make2DArray(cols, rows);
@@ -51,6 +49,7 @@ function setup() {
 function gameOver() {
   for (var i = 0; i < cols; i ++) {
     for (var j = 0; j < rows; j++) {
+      grid[i][j].flagged = false;
       grid[i][j].revealed = true;
     }
   }
@@ -60,10 +59,18 @@ function mousePressed() {
   for (var i = 0; i < cols; i ++) {
     for (var j = 0; j < rows; j++) {
       if (grid[i][j].contains(mouseX, mouseY)) {
-        grid[i][j].reveal();
+        if (mouseButton == CENTER) {
+          if (!grid[i][j].revealed) {
+            grid[i][j].mark();
+          }
+        } else {
+          if (grid[i][j].flagged != 1) {
+            grid[i][j].reveal();
 
-        if(grid[i][j].bee) {
-          gameOver();
+            if(grid[i][j].bee) {
+              gameOver();
+            }
+          }
         }
       }
     }
