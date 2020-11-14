@@ -18,10 +18,9 @@ function setup() {
   cols = floor(width / w);
   rows = floor(height / w);
   grid = make2DArray(cols, rows);
-  console.log(grid);
   for (var i = 0; i < cols; i ++) {
     for (var j = 0; j < rows; j++) {
-      grid[i][j]  new Cell(i, j, w);
+      grid[i][j] = new Cell(i, j, w);
     }
   }
 
