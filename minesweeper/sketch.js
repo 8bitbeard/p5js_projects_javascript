@@ -1,11 +1,14 @@
 var grid;
-var w = 20;
+var xgrid = 545;
+var ygrid = 622;
+var w = 31;
 var totalBombs = 25;
 var normalCell;
 var flaggedCell;
 var numberCells = [];
 
 function preload() {
+  field = loadImage('images/field.png')
   normalCell = loadImage('images/normal_cell.png');
   bombInactive = loadImage('images/bomb_inactive.png');
   bombActive = loadImage('images/bomb_active.png');
@@ -25,9 +28,11 @@ function make2DArray(cols, rows) {
 }
 
 function setup() {
-  createCanvas(301, 301);
+  createCanvas(xgrid, ygrid);
   cols = floor(width / w);
   rows = floor(height / w);
+  cols = 16;
+  rows = 16;
   grid = make2DArray(cols, rows);
   for (var i = 0; i < cols; i ++) {
     for (var j = 0; j < rows; j++) {
@@ -69,6 +74,18 @@ function gameOver() {
 }
 
 function mousePressed() {
+  if (mouseButton === LEFT){
+    for (var i = 0; i < cols; i ++) {
+      for (var j = 0; j < rows; j++) {
+        if (grid[i][j].contains(mouseX, mouseY)) {
+          grid[i][j].pressed = true;
+        }
+      }
+    }
+  }
+}
+
+function mouseReleased() {
   for (var i = 0; i < cols; i ++) {
     for (var j = 0; j < rows; j++) {
       if (grid[i][j].contains(mouseX, mouseY)) {
@@ -93,6 +110,7 @@ function mousePressed() {
 
 function draw() {
   background(255);
+  image(field, 0, 0, xgrid, ygrid);
   for (var i = 0; i < cols; i ++) {
     for (var j = 0; j < rows; j++) {
       grid[i][j].show();

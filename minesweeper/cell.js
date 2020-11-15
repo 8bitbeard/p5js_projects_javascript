@@ -1,16 +1,19 @@
 class Cell {
 
   constructor(i, j, w) {
+    this.xoffset = 25;
+    this.yoffset = 105;
     this.i = i;
     this.j = j;
-    this.x = i * w;
-    this.y = j * w;
+    this.x = (i * w) + this.xoffset;
+    this.y = (j * w) + this.yoffset;
     this.w = w;
     this.neighborCount = 0;
 
     this.bomb = false;
     this.revealed = false;
     this.activated = false;
+    this.pressed = false;
     this.flagged = 0;
   }
 
@@ -67,7 +70,11 @@ class Cell {
   }
 
   show() {
-    image(normalCell, this.x, this.y, this.w, this.w);
+    if (this.pressed) {
+      image(numberCells[0], this.x, this.y, this.w, this.w);
+    } else {
+      image(normalCell, this.x, this.y, this.w, this.w);
+    }
     if (this.revealed) {
       if (this.bomb && this.activated) {
         image(bombActive, this.x, this.y, this.w, this.w);
