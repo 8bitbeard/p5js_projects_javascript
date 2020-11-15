@@ -1,3 +1,6 @@
+var cols = 16;
+var rows = 16;
+var button;
 var grid;
 var xgrid = 545;
 var ygrid = 622;
@@ -9,6 +12,13 @@ var numberCells = [];
 
 function preload() {
   field = loadImage('images/field.png')
+  pressedCellButton = loadImage('images/pressed_cell_button.png')
+  smileyButton = loadImage('images/smiley_button.png')
+  smileyButtonPressed = loadImage('images/smiley_button_pressed.png')
+  deadButton = loadImage('images/dead_button.png')
+  deadButtonPressed = loadImage('images/dead_button_pressed.png')
+  sunglassesButton = loadImage('images/sunglasses_button.png')
+  sunglassesButtonPressed = loadImage('images/sunglasses_button_pressed.png')
   normalCell = loadImage('images/normal_cell.png');
   bombInactive = loadImage('images/bomb_inactive.png');
   bombActive = loadImage('images/bomb_active.png');
@@ -29,10 +39,11 @@ function make2DArray(cols, rows) {
 
 function setup() {
   createCanvas(xgrid, ygrid);
-  cols = floor(width / w);
-  rows = floor(height / w);
-  cols = 16;
-  rows = 16;
+  startGame();
+}
+
+function startGame() {
+  button = new Button(248, 28);
   grid = make2DArray(cols, rows);
   for (var i = 0; i < cols; i ++) {
     for (var j = 0; j < rows; j++) {
@@ -62,9 +73,11 @@ function setup() {
       grid[i][j].countBombs();
     }
   }
+
 }
 
 function gameOver() {
+  button.lost = true;
   for (var i = 0; i < cols; i ++) {
     for (var j = 0; j < rows; j++) {
       grid[i][j].flagged = false;
@@ -73,16 +86,8 @@ function gameOver() {
   }
 }
 
-function mousePressed() {
-  if (mouseButton === LEFT){
-    for (var i = 0; i < cols; i ++) {
-      for (var j = 0; j < rows; j++) {
-        if (grid[i][j].contains(mouseX, mouseY)) {
-          grid[i][j].pressed = true;
-        }
-      }
-    }
-  }
+function winGame() {
+  button.won = true;
 }
 
 function mouseReleased() {
@@ -103,17 +108,31 @@ function mouseReleased() {
             }
           }
         }
+      } else if (button.contains(mouseX, mouseY)) {
+        startGame();
       }
     }
   }
 }
 
 function draw() {
+  var flaggedNumber = 0;
+  var revealedNumber = 0;
   background(255);
   image(field, 0, 0, xgrid, ygrid);
+  button.show();
   for (var i = 0; i < cols; i ++) {
     for (var j = 0; j < rows; j++) {
       grid[i][j].show();
+      if (grid[i][j].revealed) {
+        revealedNumber++;
+      }
+      if (grid[i][j].flagged > 0) {
+        flaggedNumber++;
+      }
     }
+  }
+  if (flaggedNumber === totalBombs && revealedNumber === cols * rows - totalBombs ) {
+    winGame();
   }
 }

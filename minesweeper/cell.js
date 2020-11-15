@@ -70,7 +70,7 @@ class Cell {
   }
 
   show() {
-    if (this.pressed) {
+    if (mouseIsPressed && mouseButton === LEFT && this.contains(mouseX, mouseY)) {
       image(numberCells[0], this.x, this.y, this.w, this.w);
     } else {
       image(normalCell, this.x, this.y, this.w, this.w);
