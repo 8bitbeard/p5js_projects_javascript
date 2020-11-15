@@ -8,13 +8,14 @@ class Cell {
     this.w = w;
     this.neighborCount = 0;
 
-    this.bee = false;
+    this.bomb = false;
     this.revealed = false;
+    this.activated = false;
     this.flagged = 0;
   }
 
-  countBees() {
-    if (this.bee) {
+  countBombs() {
+    if (this.bomb) {
       this.neighborCount = -1;
       return;
     }
@@ -25,7 +26,7 @@ class Cell {
         var j = this.j + yoff;
         if (i > -1 && i < cols && j > -1 && j < rows) {
           var neighbor = grid[i][j];
-          if (neighbor.bee) {
+          if (neighbor.bomb) {
             total++;
           }
         }
@@ -57,7 +58,7 @@ class Cell {
         var j = this.j + yoff;
         if (i > -1 && i < cols && j > -1 && j < rows) {
           var neighbor = grid[i][j];
-          if (!neighbor.bee && !neighbor.revealed) {
+          if (!neighbor.bomb && !neighbor.revealed) {
             neighbor.reveal();
           }
         }
@@ -66,41 +67,20 @@ class Cell {
   }
 
   show() {
-    // stroke(0);
-    // noFill();
-    // rect(this.x, this.y, this.w, this.w)
     image(normalCell, this.x, this.y, this.w, this.w);
     if (this.revealed) {
-      if (this.bee) {
-        // fill(127);
-        // ellipse(this.x + this.w * 0.5 , this.y + this.w * 0.5, this.w * 0.5)
+      if (this.bomb && this.activated) {
+        image(bombActive, this.x, this.y, this.w, this.w);
+      } else if (this.bomb) {
         image(bombInactive, this.x, this.y, this.w, this.w);
       } else {
         image(numberCells[this.neighborCount], this.x, this.y, this.w, this.w);
-        // fill(200);
-        // rect(this.x, this.y, this.w, this.w)
-        // if (this.neighborCount > 0) {
-        //   image(numberCells[this.neighborCount], this.x, this.y, this.w, this.w);
-        //   textAlign(CENTER);
-        //   fill(0);
-        //   text(this.neighborCount, this.x + this.w  * 0.5, this.y + this.w - 5);
-        // }
       }
     }
     if (this.flagged === 1) {
       image(flaggedCell, this.x, this.y, this.w, this.w);
-      // fill(255);
-      // rect(this.x, this.y, this.w, this.w)
-      // textAlign(CENTER);
-      // fill(255, 0, 0);
-      // text("X", this.x + this.w  * 0.5, this.y + this.w - 5);
     } else if (this.flagged === 2) {
       image(questionCell, this.x, this.y, this.w, this.w);
-      // fill(255);
-      // rect(this.x, this.y, this.w, this.w)
-      // textAlign(CENTER);
-      // fill(0, 0, 255);
-      // text("?", this.x + this.w  * 0.5, this.y + this.w - 5);
     }
   }
 }

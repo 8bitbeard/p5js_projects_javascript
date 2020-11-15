@@ -1,6 +1,6 @@
 var grid;
 var w = 20;
-var totalBees = 15;
+var totalBombs = 25;
 var normalCell;
 var flaggedCell;
 var numberCells = [];
@@ -8,6 +8,7 @@ var numberCells = [];
 function preload() {
   normalCell = loadImage('images/normal_cell.png');
   bombInactive = loadImage('images/bomb_inactive.png');
+  bombActive = loadImage('images/bomb_active.png');
   flaggedCell = loadImage('images/flagged_cell.png');
   questionCell = loadImage('images/question_cell.png');
   for (var i = 0; i < 9; i++) {
@@ -41,19 +42,19 @@ function setup() {
     }
   }
 
-  for (var n = 0; n < totalBees; n++) {
+  for (var n = 0; n < totalBombs; n++) {
     var index = floor(random(options.length));
     var choice = options[index]
     var i = choice[0];
     var j = choice[1];
     options.splice(index, 1);
-    grid[i][j].bee = true;
+    grid[i][j].bomb = true;
   }
 
 
   for (var i = 0; i < cols; i ++) {
     for (var j = 0; j < rows; j++) {
-      grid[i][j].countBees();
+      grid[i][j].countBombs();
     }
   }
 }
@@ -79,7 +80,8 @@ function mousePressed() {
           if (grid[i][j].flagged != 1) {
             grid[i][j].reveal();
 
-            if(grid[i][j].bee) {
+            if(grid[i][j].bomb) {
+              grid[i][j].activated = true;
               gameOver();
             }
           }
