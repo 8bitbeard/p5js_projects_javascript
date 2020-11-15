@@ -1,3 +1,20 @@
+var grid;
+var w = 20;
+var totalBees = 15;
+var normalCell;
+var flaggedCell;
+var numberCells = [];
+
+function preload() {
+  normalCell = loadImage('images/normal_cell.png');
+  bombInactive = loadImage('images/bomb_inactive.png');
+  flaggedCell = loadImage('images/flagged_cell.png');
+  questionCell = loadImage('images/question_cell.png');
+  for (var i = 0; i < 9; i++) {
+    numberCells[i] = loadImage(`images/${i}.png`);
+  }
+}
+
 function make2DArray(cols, rows) {
   var arr = new Array(cols);
   for (var i = 0; i < arr.length; i++) {
@@ -5,11 +22,6 @@ function make2DArray(cols, rows) {
   }
   return arr;
 }
-
-var grid;
-w = 20;
-
-var totalBees = 15;
 
 function setup() {
   createCanvas(301, 301);
