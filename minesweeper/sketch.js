@@ -1,3 +1,4 @@
+var timerValue = 0;
 var cols = 16;
 var rows = 16;
 var button;
@@ -5,10 +6,13 @@ var grid;
 var xgrid = 545;
 var ygrid = 622;
 var w = 31;
-var totalBombs = 25;
+var totalBombs = 40;
 var normalCell;
 var flaggedCell;
 var numberCells = [];
+var displayNumbers = [];
+var displayOne;
+var displayTwo;
 
 function preload() {
   field = loadImage('images/field.png')
@@ -27,6 +31,9 @@ function preload() {
   for (var i = 0; i < 9; i++) {
     numberCells[i] = loadImage(`images/${i}.png`);
   }
+  for (var i = 0; i <= 10; i++) {
+    displayNumbers[i] = loadImage(`images/number_${i}.png`)
+  }
 }
 
 function make2DArray(cols, rows) {
@@ -39,10 +46,14 @@ function make2DArray(cols, rows) {
 
 function setup() {
   createCanvas(xgrid, ygrid);
+  setInterval(timeIt, 1000);
   startGame();
 }
 
 function startGame() {
+  timerValue = 0;
+  displayOne = new Display(32, 30, 25, 43);
+  displayTwo = new Display(439, 30, 25, 43);
   button = new Button(248, 28);
   grid = make2DArray(cols, rows);
   for (var i = 0; i < cols; i ++) {
@@ -115,6 +126,11 @@ function mouseReleased() {
   }
 }
 
+function timeIt() {
+  timerValue++;
+  displayTwo.setValue(timerValue);
+}
+
 function draw() {
   var flaggedNumber = 0;
   var revealedNumber = 0;
@@ -132,6 +148,9 @@ function draw() {
       }
     }
   }
+  displayOne.setValue(totalBombs - flaggedNumber);
+  displayOne.show();
+  displayTwo.show();
   if (flaggedNumber === totalBombs && revealedNumber === cols * rows - totalBombs ) {
     winGame();
   }
