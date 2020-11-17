@@ -123,8 +123,8 @@ class Boid {
   show() {
     var angle = this.velocity.heading() + PI / 2;
     push();
-    translate(this.position.x, this.position.y);
-    rotate(angle)
+    // translate(this.position.x, this.position.y);
+    // rotate(angle)
     noFill();
     stroke(255);
     triangle(
