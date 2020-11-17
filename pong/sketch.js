@@ -33,8 +33,8 @@ function keyPressed() {
 function draw() {
   background(0);
 
-  puck.checkPaddle(left);
-  puck.checkPaddle(right);
+  puck.checkLeftPaddle(left);
+  puck.checkRightPaddle(right);
 
   left.show();
   right.show();
