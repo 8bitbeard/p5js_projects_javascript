@@ -1,6 +1,9 @@
 # p5_projects
 This repository contains all the mini projects i created while studying the p5.js library.
 
+# Todo List:
+- Flappy Bird
+
 You can view/interact with the projects trough the Github Pages. See the list below:
 - Asteroids: https://8bitbeard.github.io/p5_projects/asteroids/
 - Fireworks: https://8bitbeard.github.io/p5_projects/fireworks/
