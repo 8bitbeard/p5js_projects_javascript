@@ -28,6 +28,9 @@ class AlienShip {
       [0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0],
     ];
 
+    var scores = [50, 100, 150, 200, 250, 300];
+    this.value = scores[Math.floor(Math.random() * scores.length)]
+
     if (random(1) < 0.5) {
       this.x = width - this.model[0].length * this.w;
       this.xdir = -2;

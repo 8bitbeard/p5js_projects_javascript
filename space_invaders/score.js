@@ -5,11 +5,11 @@ class Score {
     this.y = y;
     this.w = 50;
     this.h = 20;
-    this.values = [0, 0]
+    this.value = 0;
   }
 
-  setValues() {
-
+  update(value) {
+    this.value += value
   }
 
   show() {
@@ -17,6 +17,6 @@ class Score {
     noStroke();
     textFont(pixelFont);
     textSize(20);
-    text(`score: ${this.values[0]}`, this.x + 10, this.y + 28)
+    text(`score: ${this.value}`, this.x + 10, this.y + 28)
   }
 }

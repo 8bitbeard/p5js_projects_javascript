@@ -90,11 +90,28 @@ class Alien {
     ];
 
     this.selectType(type)
+    this.value = this.setValue(type);
 
   }
 
   selectType(type) {
     this.model = this.alien_shapes[type]
+  }
+
+  setValue(type) {
+    var value;
+    switch (type) {
+      case 0:
+        value = 30;
+        break;
+      case 1:
+        value = 20;
+        break;
+      case 2:
+        value = 10;
+        break;
+    }
+    return value;
   }
 
   shiftDown() {

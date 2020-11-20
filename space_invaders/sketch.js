@@ -61,6 +61,7 @@ function draw() {
     if (shipLaser && shipLaser.crash(alienShip)) {
       shipLaser.desintegrate();
       alienShip.hit = true;
+      score.update(alienShip.value)
     }
     if (alienShip.edge() || alienShip.dead) {
       alienShip = null;
@@ -85,24 +86,14 @@ function draw() {
       if (shipLaser && shipLaser.hits(aliens[i][j]) && !aliens[i][j].dead) {
         shipLaser.desintegrate();
         aliens[i][j].dead = true;
+        score.update(aliens[i][j].value)
       }
-      // for (var k = 0; k < lasers.length; k++) {
-      //   if (lasers[k].hits(aliens[i][j]) && !aliens[i][j].dead) {
-      //     lasers[k].desintegrate();
-      //     aliens[i][j].dead = true;
-      //   }
-      // crash
     }
   }
 
   for (var i = 0; i < bunkers.length; i++) {
     bunkers[i].update();
     bunkers[i].show();
-    // mouse = {
-    //   x: mouseX,
-    //   y: mouseY
-    // }
-    // bunkers[i].hits(mouse)
     if (shipLaser && shipLaser.crash(bunkers[i])) {
       shipLaser.desintegrate();
       bunkers[i].hits(shipLaser)
@@ -126,18 +117,6 @@ function draw() {
       shipLaser = null;
     }
   }
-
-  // for (var i = 0; i < lasers.length; i++) {
-  //   lasers[i].show();
-  //   lasers[i].move();
-  // }
-
-
-  // for (var i = lasers.length-1; i >= 0; i--) {
-  //   if (lasers[i].desintegrated) {
-  //     lasers.splice(i, 1);
-  //   }
-  // }
 }
 
 function keyReleased() {
@@ -151,10 +130,6 @@ function keyPressed() {
     if (!shipLaser) {
       shipLaser = new Laser(ship.x, ship.y);
     }
-    // if (lasers.length < 2) {
-    //   var laser = new Laser(ship.x, ship.y);
-    //   lasers.push(laser);
-    // }
   }
 
   if (keyCode === RIGHT_ARROW) {
