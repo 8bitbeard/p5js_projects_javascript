@@ -1,52 +1,145 @@
 var ship;
-var aliens = [];
+var alienShip;
+var aliens;
+var shipLaser;
 var lasers = [];
+var bunkers = [];
+var score;
+
+var cols = 11;
+var rows = 5;
+
+function preload() {
+  pixelFont = loadFont('assets/Pixeboy.ttf');
+}
+
+function make2DArray(cols, rows) {
+  var arr = new Array(cols);
+  for (var i = 0; i < arr.length; i++) {
+    arr[i] = new Array(rows);
+  }
+  return arr;
+}
 
 function setup() {
-  createCanvas(600, 400);
+  createCanvas(500, 600);
+  score = new Score(10, 10);
   ship = new Ship();
-  for (var i = 0; i < 6; i++) {
-    aliens[i] = new Alien(i * 80 + 80, 60);
+  aliens = make2DArray(cols, rows);
+  for (var i = 0; i < 4; i++) {
+    bunkers[i] = new Bunker(i * 100 + 80, 530)
+  }
+  for (var i = 0; i < cols; i++) {
+    for (var j = 0; j < rows; j++) {
+      switch (j) {
+        case 2:
+          aliens[i][j] = new Alien(i * 40 + 47, j * 40 + 160, 1)
+          break;
+        case 3:
+          aliens[i][j] = new Alien(i * 40 + 47, j * 40 + 160, 2)
+          break;
+        case 4:
+          aliens[i][j] = new Alien(i * 40 + 47, j * 40 + 160, 2)
+          break;
+        default:
+          aliens[i][j] = new Alien(i * 40 + 47, j * 40 + 160, j)
+          break;
+      }
+    }
   }
 }
 
 function draw() {
-  background(51);
+  background(0);
+  score.show();
   ship.show();
   ship.move();
 
-  for (var i = 0; i < lasers.length; i++) {
-    lasers[i].show();
-    lasers[i].move();
-    for (var j = 0; j < aliens.length; j++) {
-      if (lasers[i].hits(aliens[j])) {
-        aliens[j].grow();
-        lasers[i].desintegrate();
-      }
+  if (alienShip) {
+    alienShip.move();
+    alienShip.show();
+  } else {
+    if (random(1) < 0.001) {
+      alienShip = new Alien(0, 100, 2)
     }
   }
 
   var edge = false;
-  for (var i = 0; i < aliens.length; i++) {
-    aliens[i].show();
-    aliens[i].move();
+  for (var i = 0; i < cols; i++) {
+    for (var j = 0; j < rows; j++) {
+      aliens[i][j].show();
+      if (frameCount % 10 == 0) {
+        aliens[i][j].move();
+      }
 
-    if (aliens[i].x > width || aliens[i].x < 0) {
-      edge = true;
+      if (aliens[i][j].edge()) {
+        edge = true;
+      }
+      if (shipLaser && shipLaser.hits(aliens[i][j]) && !aliens[i][j].dead) {
+        shipLaser.desintegrate();
+        aliens[i][j].dead = true;
+      }
+      // for (var k = 0; k < lasers.length; k++) {
+      //   if (lasers[k].hits(aliens[i][j]) && !aliens[i][j].dead) {
+      //     lasers[k].desintegrate();
+      //     aliens[i][j].dead = true;
+      //   }
+      // crash
     }
+  }
+
+  for (var i = 0; i < bunkers.length; i++) {
+    bunkers[i].update();
+    bunkers[i].show();
+    // mouse = {
+    //   x: mouseX,
+    //   y: mouseY
+    // }
+    // console.log(mouse);
+    // bunkers[i].hits(mouse)
+    if (shipLaser && shipLaser.crash(bunkers[i])) {
+      shipLaser.desintegrate();
+      bunkers[i].hits(shipLaser)
+
+    }
+      // console.log('teste')
+    // if (shipLaser && shipLaser.hits(bunkers[i])) {
+      // console.log('hits')
+      // bunkers[i].hit(shipLaser)
+      // shipLaser.desintegrate();
+
+      // aliens[i][j].dead = true;
   }
 
   if (edge) {
-    for (var i = 0; i < aliens.length; i++) {
-      aliens[i].shiftDown();
+    for (var i = 0; i < cols; i++) {
+      for (var j = 0; j < rows; j++) {
+        aliens[i][j].shiftDown();
+      }
     }
   }
 
-  for (var i = lasers.length-1; i >= 0; i--) {
-    if (lasers[i].desintegrated) {
-      lasers.splice(i, 1);
+  if (shipLaser) {
+    shipLaser.move();
+    shipLaser.show();
+    shipLaser.edge();
+    // console.log(shipLaser)
+    if (shipLaser.desintegrated) {
+      shipLaser = null;
     }
   }
+
+  // for (var i = 0; i < lasers.length; i++) {
+  //   lasers[i].show();
+  //   lasers[i].move();
+  // }
+
+
+  // for (var i = lasers.length-1; i >= 0; i--) {
+  //   if (lasers[i].desintegrated) {
+  //     lasers.splice(i, 1);
+  //   }
+  // }
 }
 
 function keyReleased() {
@@ -57,8 +150,13 @@ function keyReleased() {
 
 function keyPressed() {
   if (key === ' ') {
-    var laser = new Laser(ship.x, height);
-    lasers.push(laser);
+    if (!shipLaser) {
+      shipLaser = new Laser(ship.x, ship.y);
+    }
+    // if (lasers.length < 2) {
+    //   var laser = new Laser(ship.x, ship.y);
+    //   lasers.push(laser);
+    // }
   }
 
   if (keyCode === RIGHT_ARROW) {
