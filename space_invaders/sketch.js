@@ -58,9 +58,16 @@ function draw() {
   if (alienShip) {
     alienShip.move();
     alienShip.show();
+    if (shipLaser && shipLaser.crash(alienShip)) {
+      shipLaser.desintegrate();
+      alienShip.hit = true;
+    }
+    if (alienShip.edge() || alienShip.dead) {
+      alienShip = null;
+    }
   } else {
-    if (random(1) < 0.001) {
-      alienShip = new Alien(0, 100, 2)
+    if (frameCount % 1500 == 0) {
+      alienShip = new AlienShip()
     }
   }
 
@@ -95,20 +102,12 @@ function draw() {
     //   x: mouseX,
     //   y: mouseY
     // }
-    // console.log(mouse);
     // bunkers[i].hits(mouse)
     if (shipLaser && shipLaser.crash(bunkers[i])) {
       shipLaser.desintegrate();
       bunkers[i].hits(shipLaser)
 
     }
-      // console.log('teste')
-    // if (shipLaser && shipLaser.hits(bunkers[i])) {
-      // console.log('hits')
-      // bunkers[i].hit(shipLaser)
-      // shipLaser.desintegrate();
-
-      // aliens[i][j].dead = true;
   }
 
   if (edge) {
@@ -123,7 +122,6 @@ function draw() {
     shipLaser.move();
     shipLaser.show();
     shipLaser.edge();
-    // console.log(shipLaser)
     if (shipLaser.desintegrated) {
       shipLaser = null;
     }
