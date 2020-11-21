@@ -2,12 +2,14 @@ var ship;
 var alienShip;
 var aliens;
 var shipLaser;
-var lasers = [];
+var alienLasers = [];
 var bunkers = [];
 var score;
 
 var cols = 11;
 var rows = 5;
+
+var aliensAlive = cols * rows;
 
 function preload() {
   pixelFont = loadFont('assets/Pixeboy.ttf');
@@ -51,6 +53,7 @@ function setup() {
 
 function draw() {
   background(0);
+  // frameRate(5)
   score.show();
   ship.show();
   ship.move();
@@ -76,6 +79,7 @@ function draw() {
   for (var i = 0; i < cols; i++) {
     for (var j = 0; j < rows; j++) {
       aliens[i][j].show();
+
       if (frameCount % 10 == 0) {
         aliens[i][j].move();
       }
@@ -83,11 +87,30 @@ function draw() {
       if (aliens[i][j].edge()) {
         edge = true;
       }
+
       if (shipLaser && shipLaser.hits(aliens[i][j]) && !aliens[i][j].dead) {
         shipLaser.desintegrate();
         aliens[i][j].dead = true;
         score.update(aliens[i][j].value)
+        aliensAlive -= 1;
+        // console.log(aliensAlive)
       }
+    }
+  }
+
+  if (random(1) < 0.11) {
+    var options = [];
+    for (var i = 0; i < cols; i++) {
+      for (var j = 0; j < rows; j++) {
+        if (!aliens[i][j].dead) {
+          options.push(aliens[i][j])
+        }
+      }
+    }
+    if (options.length > 0) {
+      var index = options[floor(random(options.length))]
+      var laser = new AlienLaser(index.center, index.y)
+      alienLasers.push(laser)
     }
   }
 
@@ -95,9 +118,22 @@ function draw() {
     bunkers[i].update();
     bunkers[i].show();
     if (shipLaser && shipLaser.crash(bunkers[i])) {
-      shipLaser.desintegrate();
-      bunkers[i].hits(shipLaser)
-
+      // console.log(bunkers[i].getStructurePoint(shipLaser.center));
+      console.log(shipLaser.center)
+      if (bunkers[i].getStructurePoint(shipLaser.center, shipLaser.yspeed)) {
+        shipLaser.desintegrate();
+        bunkers[i].hits(shipLaser)
+      }
+    }
+    for (var j = 0; j < alienLasers.length; j++) {
+      if (alienLasers[j].hits(bunkers[i])) {
+        console.log('inside')
+        // console.log(bunkers[i].getStructurePoint(alienLasers[j].center));
+        if (bunkers[i].getStructurePoint(alienLasers[j].center, alienLasers[j].yspeed)) {
+          alienLasers[j].vanish = true;
+          bunkers[i].hits(alienLasers[j])
+        }
+      }
     }
   }
 
@@ -109,12 +145,24 @@ function draw() {
     }
   }
 
+  for (var i = 0; i < alienLasers.length; i++) {
+    alienLasers[i].move();
+    alienLasers[i].show();
+    alienLasers[i].edge();
+  }
+
   if (shipLaser) {
     shipLaser.move();
     shipLaser.show();
     shipLaser.edge();
     if (shipLaser.desintegrated) {
       shipLaser = null;
+    }
+  }
+
+  for (var i = alienLasers.length-1; i >= 0; i--) {
+    if (alienLasers[i].vanish) {
+      alienLasers.splice(i, 1);
     }
   }
 }

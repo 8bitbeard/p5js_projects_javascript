@@ -6,6 +6,7 @@ class Alien {
     this.r = 0;
     this.dead = false;
     this.counter = 0;
+    this.center = 0;
 
     this.w = 2;
 
@@ -126,6 +127,7 @@ class Alien {
 
   move() {
     this.x += this.xdir;
+    this.center = this.x + (this.model[0].length * this.w / 2)
   }
 
   edge() {

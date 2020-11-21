@@ -4,7 +4,8 @@ class Laser {
     this.x = x;
     this.y = y;
     this.w = 2
-    this.yspeed = 7
+    this.center = 0;
+    this.yspeed = -7
     this.vanish = false
     this.desintegrated = false;
     this.counter = 0;
@@ -35,8 +36,12 @@ class Laser {
 
   crash(obj) {
     if (this.x > obj.x && this.x < obj.x + obj.model[0].length * obj.w) {
-      if (this.y > obj.y && this.y < obj.y + obj.model.length * obj.w) {
-        return true;
+      for (var i = this.yspeed; i <= 0; i++) {
+        var point = createVector(this.x, this.y + i);
+        if (point.y > obj.y && point.y < obj.y + obj.model.length * obj.w) {
+          this.center = createVector(point.x, point.y);
+          return true;
+        }
       }
     }
     return false;
@@ -51,7 +56,8 @@ class Laser {
   }
 
   move() {
-    this.y -= this.yspeed;
+    this.y += this.yspeed;
+    this.center = createVector(this.x, this.y);
   }
 
   render(object) {
