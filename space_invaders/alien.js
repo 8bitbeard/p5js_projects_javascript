@@ -11,6 +11,7 @@ class Alien {
     this.w = 2;
 
     this.xdir = 1;
+    this.speed = 1;
 
     this.type = type;
 
@@ -117,7 +118,7 @@ class Alien {
 
   shiftDown() {
     this.xdir *= -1;
-    this.x += this.xdir * 2
+    this.x += this.xdir * this.speed
     this.y += this.model[0].length * this.w;
   }
 
@@ -126,7 +127,8 @@ class Alien {
   }
 
   move() {
-    this.x += this.xdir;
+    this.speed += 0.02
+    this.x += this.xdir * this.speed;
     this.center = this.x + (this.model[0].length * this.w / 2)
   }
 

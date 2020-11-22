@@ -16,7 +16,7 @@ class Score {
     fill(255);
     noStroke();
     textFont(pixelFont);
-    textSize(20);
+    textSize(25);
     text(`score: ${this.value}`, this.x + 10, this.y + 28)
   }
 }

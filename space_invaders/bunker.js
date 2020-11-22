@@ -6,18 +6,18 @@ class Bunker {
     this.w = 3
 
     this.model = [
-      [0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0],
-      [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
-      [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-      [1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1],
-      [1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1],
-      [1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1],
-      [1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1],
+      [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+      [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+      [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+      [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+      [1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1],
+      [1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1],
+      [1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
+      [1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],
     ];
 
     this.explosion = [
@@ -56,7 +56,7 @@ class Bunker {
     return arr;
   }
 
-  getStructurePoint(point, dir) {
+  getStructurePoint(point) {
     var x = floor((point.x - this.x) / this.w)
     var y = floor((point.y - this.y) / this.w)
     return (this.model[y][x] === 1)
@@ -66,7 +66,6 @@ class Bunker {
     var x = ceil((point.x - this.x) / this.w)
     var y = ceil((point.y - this.y) / this.w)
     var modelPoint = createVector(x, y);
-    console.log(`Model Point: ${x}, ${y}`)
     return (modelPoint)
   }
 
@@ -77,24 +76,26 @@ class Bunker {
   matrixOverlap(arrOne, arrTwo, point, direction) {
     var x = constrain(floor((point.x - this.x) / this.w), 0, arrTwo[0].length)
     var horizontalFilter = [[x - 2, 0], [x - 1, 1], [x, 2], [x + 1, 3], [x + 2], 4].filter(x => this.isBetween(x, 0, arrTwo[0].length))
-    // console.log(point)
     var modelPoint = this.getModelPoint(point)
-    // console.log(modelPoint);
+    console.log(modelPoint)
 
     // Ships laser
     if (direction < 0) {
       for (var i = arrOne.length - 1; i >= 0; i--) {
         for(var j = 0; j < horizontalFilter.length; j++) {
           if (arrOne[i][j] == 1) {
-            arrTwo[constrain(modelPoint.y - i, 0, arrTwo.length)][horizontalFilter[j][0]] = 0;
+            console.log(i, j)
+            arrTwo[constrain(modelPoint.y - i , 0, arrTwo.length - 1)][horizontalFilter[j][0]] = 0;
           }
         }
       }
     } else { // Aliens Laser
-      for (var i = 0; i < arrOne.length; i++ ){
+      var arr = arrOne.reverse();
+      arrOne.reverse();
+      for (var i = 0; i < arr.length; i++ ){
         for(var j = 0; j < horizontalFilter.length; j++) {
-          if (arrOne[i][j] == 1) {
-            arrTwo[i][horizontalFilter[j][0]] = 0;
+          if (arr[i][j] == 1) {
+            arrTwo[constrain(modelPoint.y + i - 2, 0, arrTwo.length- 1)][horizontalFilter[j][0]] = 0;
           }
         }
       }

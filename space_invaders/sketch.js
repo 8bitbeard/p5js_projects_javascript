@@ -5,6 +5,7 @@ var shipLaser;
 var alienLasers = [];
 var bunkers = [];
 var score;
+var lives;
 
 var cols = 11;
 var rows = 5;
@@ -27,24 +28,25 @@ function setup() {
   createCanvas(500, 600);
   score = new Score(10, 10);
   ship = new Ship();
+  lives = new Lives(10, 575);
   aliens = make2DArray(cols, rows);
   for (var i = 0; i < 4; i++) {
-    bunkers[i] = new Bunker(i * 100 + 80, 530)
+    bunkers[i] = new Bunker(i * 100 + 74, 450)
   }
   for (var i = 0; i < cols; i++) {
     for (var j = 0; j < rows; j++) {
       switch (j) {
         case 2:
-          aliens[i][j] = new Alien(i * 40 + 47, j * 40 + 160, 1)
+          aliens[i][j] = new Alien(i * 40 + 47, j * 40 + 140, 1)
           break;
         case 3:
-          aliens[i][j] = new Alien(i * 40 + 47, j * 40 + 160, 2)
+          aliens[i][j] = new Alien(i * 40 + 47, j * 40 + 140, 2)
           break;
         case 4:
-          aliens[i][j] = new Alien(i * 40 + 47, j * 40 + 160, 2)
+          aliens[i][j] = new Alien(i * 40 + 47, j * 40 + 140, 2)
           break;
         default:
-          aliens[i][j] = new Alien(i * 40 + 47, j * 40 + 160, j)
+          aliens[i][j] = new Alien(i * 40 + 47, j * 40 + 140, j)
           break;
       }
     }
@@ -53,7 +55,12 @@ function setup() {
 
 function draw() {
   background(0);
+  stroke(255);
+  strokeWeight(3);
+  line(0, 70, width, 70);
+  line(0, 565, width, 565);
   // frameRate(5)
+  lives.show();
   score.show();
   ship.show();
   ship.move();
@@ -93,12 +100,11 @@ function draw() {
         aliens[i][j].dead = true;
         score.update(aliens[i][j].value)
         aliensAlive -= 1;
-        // console.log(aliensAlive)
       }
     }
   }
 
-  if (random(1) < 0.11) {
+  if (random(1) < 0.009) {
     var options = [];
     for (var i = 0; i < cols; i++) {
       for (var j = 0; j < rows; j++) {
@@ -118,8 +124,6 @@ function draw() {
     bunkers[i].update();
     bunkers[i].show();
     if (shipLaser && shipLaser.crash(bunkers[i])) {
-      // console.log(bunkers[i].getStructurePoint(shipLaser.center));
-      console.log(shipLaser.center)
       if (bunkers[i].getStructurePoint(shipLaser.center, shipLaser.yspeed)) {
         shipLaser.desintegrate();
         bunkers[i].hits(shipLaser)
@@ -127,8 +131,6 @@ function draw() {
     }
     for (var j = 0; j < alienLasers.length; j++) {
       if (alienLasers[j].hits(bunkers[i])) {
-        console.log('inside')
-        // console.log(bunkers[i].getStructurePoint(alienLasers[j].center));
         if (bunkers[i].getStructurePoint(alienLasers[j].center, alienLasers[j].yspeed)) {
           alienLasers[j].vanish = true;
           bunkers[i].hits(alienLasers[j])

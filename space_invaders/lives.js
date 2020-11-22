@@ -1,13 +1,13 @@
-class Ship {
+class Lives {
 
-  constructor() {
-    this.w = 3;
-    this.x = width/2;
-    this.y = height - 70 - 8 * this.w;
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.w = 2;
 
-    this.xdir = 0;
+    this.lives = 3
 
-    this.spaceship = [
+    this.model = [
       [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0],
@@ -17,14 +17,15 @@ class Ship {
       [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
       [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
     ];
+
   }
 
-  render(spaceship) {
-    for (var i = 0; i < 8; i++) {
-      for (var j = 0; j < 14; j++) {
-        if (spaceship[i][j] === 1) {
+  render(model, x) {
+    for (var i = 0; i < model.length; i++) {
+      for (var j = 0; j < model[0].length; j++) {
+        if (model[i][j] === 1) {
           rect(
-            this.x + (j * this.w) - (6 * this.w),
+            x + (j * this.w),
             this.y + (i * this.w),
             this.w,
             this.w
@@ -34,17 +35,15 @@ class Ship {
     }
   }
 
-  setDir(dir) {
-    this.xdir = dir;
-  }
-
-  move() {
-    this.x += this.xdir * 2;
-  }
-
   show() {
     fill(255);
-    rectMode(CENTER);
-    this.render(this.spaceship);
+    stroke(255);
+    noStroke();
+    textFont(pixelFont);
+    textSize(30);
+    text(this.lives, this.x, this.y + 15);
+    for (var i = 0; i < this.lives; i++) {
+      this.render(this.model, 40 + i * 30)
+    }
   }
 }

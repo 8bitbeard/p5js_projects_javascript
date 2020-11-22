@@ -2,7 +2,7 @@ class AlienShip {
 
   constructor() {
     this.w = 2;
-    this.y = 100;
+    this.y = 90;
     this.hit = false;
     this.dead = false;
     this.counter = 0;

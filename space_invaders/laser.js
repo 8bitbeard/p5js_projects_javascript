@@ -48,10 +48,10 @@ class Laser {
   }
 
   edge() {
-    if (this.y < 0) {
+    if (this.y < 70) {
       this.vanish = true;
       this.yspeed = 0;
-      this.y = 0;
+      this.y = 73;
     }
   }
 

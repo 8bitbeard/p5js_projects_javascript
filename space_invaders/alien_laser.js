@@ -43,25 +43,16 @@ class AlienLaser {
   }
 
   edge() {
-    if (this.center.y > height) {
+    if (this.center.y > 565) {
       this.desintegrate()
       this.yspeed = 0;
     }
   }
 
-  // hits(obj) {
-  //   if (this.center.x > obj.x && this.center.x < obj.x + obj.model[0].length * obj.w) {
-  //     if (this.center.y > obj.y && this.center.y < obj.y + obj.model.length * obj.w) {
-  //       return true;
-  //     }
-  //   }
-  //   return false;
-  // }
-
   hits(obj) {
     if (this.x > obj.x && this.x < obj.x + obj.model[0].length * obj.w) {
-      for (var i = this.yspeed; i <= 0; i++) {
-        var point = createVector(this.x, this.y + i);
+      for (var i = 0; i <= this.yspeed; i++) {
+        var point = createVector(this.x, this.center.y - i);
         if (point.y > obj.y && point.y < obj.y + obj.model.length * obj.w) {
           this.center = createVector(point.x, point.y);
           return true;
