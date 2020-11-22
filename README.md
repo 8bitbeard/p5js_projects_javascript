@@ -7,7 +7,9 @@ You can view/interact with the projects trough mine Github Pages. See the list b
 # Todo List:
 - Bomber Man
 - Bricks
+- Chess
 - Flappy Bird
+- Memory Game
 - Pacman
 - Tetris
 
