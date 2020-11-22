@@ -4,6 +4,7 @@ class Alien {
     this.x = x;
     this.y = y;
     this.r = 0;
+    this.stop = false;
     this.dead = false;
     this.counter = 0;
     this.center = 0;
@@ -127,9 +128,11 @@ class Alien {
   }
 
   move() {
-    this.speed += 0.02
-    this.x += this.xdir * this.speed;
-    this.center = this.x + (this.model[0].length * this.w / 2)
+    if (!this.stop) {
+      this.speed += 0.01
+      this.x += this.xdir * this.speed;
+      this.center = this.x + (this.model[0].length * this.w / 2)
+    }
   }
 
   edge() {

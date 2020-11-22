@@ -20,6 +20,10 @@ class Lives {
 
   }
 
+  update(value) {
+    this.lives += value;
+  }
+
   render(model, x) {
     for (var i = 0; i < model.length; i++) {
       for (var j = 0; j < model[0].length; j++) {

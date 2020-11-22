@@ -34,7 +34,6 @@ class AlienLaser {
 
   desintegrate() {
     this.desintegrated = true;
-    // this.x = this. x - floor(this.explosion[0].length / 2) * this.w;
   }
 
   move() {
