@@ -67,6 +67,16 @@ class Bunker {
     return (value[0] >= x && value[0] <= y)
   }
 
+  cutChunk(point) {
+    var modelPoint = this.getModelPoint(point)
+    var y = constrain(modelPoint.y, 0, this.model.length);
+    for (var i = 0; i < y; i++ ) {
+      for (var j = 0; j < this.model[0].length; j++ ) {
+        this.model[i][j] = 0;
+      }
+    }
+  }
+
   matrixOverlap(arrOne, arrTwo, point, direction) {
     var x = constrain(floor((point.x - this.x) / this.w), 0, arrTwo[0].length)
     var horizontalFilter = [[x - 2, 0], [x - 1, 1], [x, 2], [x + 1, 3], [x + 2], 4].filter(x => this.isBetween(x, 0, arrTwo[0].length))

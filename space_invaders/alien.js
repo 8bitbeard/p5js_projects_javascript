@@ -3,7 +3,6 @@ class Alien {
   constructor(x, y, type) {
     this.x = x;
     this.y = y;
-    this.r = 0;
     this.stop = false;
     this.dead = false;
     this.counter = 0;
@@ -94,7 +93,6 @@ class Alien {
 
     this.selectType(type)
     this.value = this.setValue(type);
-
   }
 
   selectType(type) {
@@ -135,6 +133,10 @@ class Alien {
     }
   }
 
+  getBottom() {
+    return (createVector(this.x + (this.model[0][0].length * this.w) / 2, this.y + (this.model[0].length * this.w) + 3))
+  }
+
   edge() {
     if (!this.dead) {
       if (this.x + this.model[0][0].length * this.w > width || this.x < 0) {
@@ -142,6 +144,10 @@ class Alien {
       }
     }
     return false;
+  }
+
+  hits(object) {
+    return (this.y + this.model.length * this.w > object.y)
   }
 
   render(object) {

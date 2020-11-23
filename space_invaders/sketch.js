@@ -14,6 +14,7 @@ var cols = 11;
 var rows = 5;
 
 var aliensAlive;
+var aliensBottom;
 
 function preload() {
   pixelFont = loadFont('assets/Pixeboy.ttf');
@@ -36,6 +37,7 @@ function startGame() {
   score = new Score(10, 10);
   ship = new Ship();
   lives = new Lives(10, 575);
+  aliensBottom = createVector(1, 1);
   aliens = make2DArray(cols, rows);
   for (var i = 0; i < 4; i++) {
     bunkers[i] = new Bunker(i * 100 + 74, 450)
@@ -124,6 +126,12 @@ function draw() {
     var edge = false;
     for (var i = 0; i < cols; i++) {
       for (var j = 0; j < rows; j++) {
+        if (!aliens[i][j].dead && aliens[i][j].getBottom().y > aliensBottom.y) {
+          aliensBottom = aliens[i][j].getBottom();
+          if (aliensBottom.y > ship.y) {
+            gameOver = true;
+          }
+        }
         aliens[i][j].show();
 
         if (frameCount % 10 == 0 && !ship.dead) {
@@ -161,15 +169,18 @@ function draw() {
 
     for (var i = 0; i < bunkers.length; i++) {
       bunkers[i].show();
+      if (aliensBottom.y > bunkers[i].y) {
+        bunkers[i].cutChunk(aliensBottom)
+      }
       if (shipLaser && shipLaser.crash(bunkers[i])) {
-        if (bunkers[i].getStructurePoint(shipLaser.center, shipLaser.yspeed)) {
+        if (bunkers[i].getStructurePoint(shipLaser.center)) {
           shipLaser.desintegrate();
           bunkers[i].hits(shipLaser)
         }
       }
       for (var j = 0; j < alienLasers.length; j++) {
         if (alienLasers[j].hits(bunkers[i])) {
-          if (bunkers[i].getStructurePoint(alienLasers[j].center, alienLasers[j].yspeed)) {
+          if (bunkers[i].getStructurePoint(alienLasers[j].center)) {
             alienLasers[j].vanish = true;
             bunkers[i].hits(alienLasers[j])
           }
