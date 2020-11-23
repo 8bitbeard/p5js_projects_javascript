@@ -16,7 +16,10 @@ class Score {
     noStroke();
     textFont(pixelFont);
     textSize(60);
-    text(this.values[0], this.x, this.y)
-    text(this.values[1], this.x + 120, this.y)
+    var valueOneWidth = textWidth(this.values[0].toString())
+    var valueTwoWidth = textWidth(this.values[1].toString())
+
+    text(this.values[0], this.x - 70 - floor(valueOneWidth / 2), this.y)
+    text(this.values[1], this.x + 70 - floor(valueTwoWidth / 2), this.y)
   }
 }

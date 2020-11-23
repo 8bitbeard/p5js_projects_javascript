@@ -2,7 +2,7 @@ class Paddle {
 
   constructor(left) {
     this.w = 10;
-    this.h = 100;
+    this.h = 50;
     this.x = (left) ? this.w : width - this.w;
     this.y = height / 2;
 

@@ -18,13 +18,13 @@ You can view/interact with the projects trough mine Github Pages. See the list b
 
 # Needs Improovement:
 - Asteroids: https://8bitbeard.github.io/p5_projects/asteroids/
-- Pong: https://8bitbeard.github.io/p5_projects/pong/
 
 # Done:
 - Game of Life: https://8bitbeard.github.io/p5_projects/game_of_life
 - Minesweeper: https://8bitbeard.github.io/p5_projects/minesweeper/
 - Snake Game: https://8bitbeard.github.io/p5_projects/snake_game
 - Space Invaders: https://8bitbeard.github.io/p5_projects/space_invaders/
+- Pong: https://8bitbeard.github.io/p5_projects/pong/
 
 # Side Projects / Study:
 - 7 Segments Display: https://8bitbeard.github.io/p5_projects/7_segments_display/
