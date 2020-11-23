@@ -20,6 +20,10 @@ class Lives {
 
   }
 
+  setValue(value) {
+    this.lives = value;
+  }
+
   update(value) {
     this.lives += value;
   }

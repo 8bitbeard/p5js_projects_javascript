@@ -7,6 +7,9 @@ var bunkers = [];
 var score;
 var lives;
 
+var counter = 0;
+var currentLevel = 0;
+
 var gameOver = false;
 var gameWon = false;
 
@@ -30,10 +33,11 @@ function make2DArray(cols, rows) {
 
 function setup() {
   createCanvas(500, 600);
-  this.startGame();
+  this.startGame(currentLevel);
 }
 
-function startGame() {
+function startGame(value) {
+  var level = constrain(value, 0, 3);
   score = new Score(10, 10);
   ship = new Ship();
   lives = new Lives(10, 575);
@@ -46,29 +50,38 @@ function startGame() {
     for (var j = 0; j < rows; j++) {
       switch (j) {
         case 2:
-          aliens[i][j] = new Alien(i * 40 + 47, j * 40 + 140, 1)
+          aliens[i][j] = new Alien(i * 40 + 47, j * 40 + 140 + level * 40, 1)
           break;
         case 3:
-          aliens[i][j] = new Alien(i * 40 + 47, j * 40 + 140, 2)
+          aliens[i][j] = new Alien(i * 40 + 47, j * 40 + 140 + level * 40, 2)
           break;
         case 4:
-          aliens[i][j] = new Alien(i * 40 + 47, j * 40 + 140, 2)
+          aliens[i][j] = new Alien(i * 40 + 47, j * 40 + 140 + level * 40, 2)
           break;
         default:
-          aliens[i][j] = new Alien(i * 40 + 47, j * 40 + 140, j)
+          aliens[i][j] = new Alien(i * 40 + 47, j * 40 + 140 + level * 40, j)
           break;
       }
     }
   }
+  score.setLevel(value + 1);
   aliensAlive = cols * rows;
   gameOver = false;
   gameWon = false;
   frameCount = 0;
 }
 
+function continueGame(scoreValue, livesValue) {
+  currentLevel++;
+  startGame(currentLevel);
+  score.setValue(scoreValue);
+  lives.setValue(livesValue);
+}
+
 function mousePressed() {
   if (mouseButton === LEFT && gameOver || gameWon) {
-    startGame();
+    currentLevel = 0;
+    startGame(currentLevel);
   }
 }
 
@@ -89,11 +102,17 @@ function draw() {
     text('Game Over!', 185, 250);
     text('click here to restart the game', 85, 300);
   } else if (gameWon) {
-    fill(255);
-    textSize(25);
-    textFont(pixelFont);
-    text('You Won!', 185, 250);
-    text('click here to play again!', 85, 300);
+    if (counter < 15) {
+      counter++;
+    } else {
+      counter = 0;
+      continueGame(score.value, lives.lives);
+    }
+    // fill(255);
+    // textSize(25);
+    // textFont(pixelFont);
+    // text('You Won!', 185, 250);
+    // text('click here to play again!', 85, 300);
   } else {
     ship.show();
     ship.move();
@@ -112,7 +131,7 @@ function draw() {
       if (shipLaser && shipLaser.crash(alienShip)) {
         shipLaser.desintegrate();
         alienShip.hit = true;
-        score.update(alienShip.value)
+        // score.update(alienShip.value)
       }
       if (alienShip.edge() || alienShip.dead) {
         alienShip = null;
@@ -143,10 +162,14 @@ function draw() {
         }
 
         if (shipLaser && shipLaser.hits(aliens[i][j]) && !aliens[i][j].dead) {
+          var bool;
           shipLaser.desintegrate();
           aliens[i][j].dead = true;
-          score.update(aliens[i][j].value)
           aliensAlive -= 1;
+          bool = score.update(aliens[i][j].value)
+          if (bool) {
+            lives.update(1);
+          }
         }
       }
     }
