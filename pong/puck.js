@@ -1,8 +1,9 @@
 class Puck {
   constructor() {
-    this.r = 12;
+    this.r = 7;
     this.x = width / 2;
     this.y = height / 2;
+    this.speedMag = 8
     this.reset();
   }
 
@@ -10,11 +11,9 @@ class Puck {
     if (this.y < paddle.y + paddle.h/2 && this.y > paddle.y - paddle.h/2 && this.x - this.r < paddle.x + paddle.w/2 ) {
       if (this.x > paddle.x) {
         var diff = this.y - (paddle.y - paddle.h/2);
-        var rad = radians(45)
-        var angle = map(diff, 0, paddle.h, -rad, rad);
-        this.xspeed = 5 * cos(angle);
-        this.yspeed = 5 * sin(angle);
-        // this.xspeed = -this.xspeed
+        var angle = map(diff, 0, paddle.h, -radians(45), radians(45));
+        this.xspeed = this.speedMag * cos(angle);
+        this.yspeed = this.speedMag * sin(angle);
       }
     }
   }
@@ -23,11 +22,9 @@ class Puck {
     if (this.y < paddle.y + paddle.h/2 && this.y > paddle.y - paddle.h/2 && this.x + this.r > paddle.x - paddle.w/2 ) {
       if (this.x < paddle.x) {
         var diff = this.y - (paddle.y - paddle.h/2);
-        var rad = radians(135);
-        var angle = map(diff, 0, paddle.h, -rad, rad);
-        this.xspeed = 5 * cos(angle);
-        this.yspeed = 5 * sin(angle);
-        // this.xspeed = -this.xspeed
+        var angle = map(diff, 0, paddle.h, radians(225), radians(135));
+        this.xspeed = this.speedMag * cos(angle);
+        this.yspeed = this.speedMag * sin(angle);
       }
     }
   }
@@ -65,6 +62,7 @@ class Puck {
 
   show() {
     fill(255);
-    ellipse(this.x, this.y, this.r * 2, this.r * 2);
+    rect(this.x, this.y, this.r * 2, this.r * 2);
+    // ellipse(this.x, this.y, this.r * 2, this.r * 2);
   }
 }
