@@ -8,21 +8,21 @@ You can view/interact with the projects trough mine Github Pages. See the list b
 - Bomber Man
 - Bricks
 - Chess
-- Flappy Bird
 - Memory Game
 - Pacman
 - Tetris
 
 # In Progress:
 - Agar.io: https://8bitbeard.github.io/p5_projects/agario/
+- Flappy Bird: https://8bitbeard.github.io/p5_projects/flappy_bird/
 
 # Needs Improovement:
 - Asteroids: https://8bitbeard.github.io/p5_projects/asteroids/
 
 # Done:
-- Game of Life: https://8bitbeard.github.io/p5_projects/game_of_life
+- Game of Life: https://8bitbeard.github.io/p5_projects/game_of_life/
 - Minesweeper: https://8bitbeard.github.io/p5_projects/minesweeper/
-- Snake Game: https://8bitbeard.github.io/p5_projects/snake_game
+- Snake Game: https://8bitbeard.github.io/p5_projects/snake_game/
 - Space Invaders: https://8bitbeard.github.io/p5_projects/space_invaders/
 - Pong: https://8bitbeard.github.io/p5_projects/pong/
 

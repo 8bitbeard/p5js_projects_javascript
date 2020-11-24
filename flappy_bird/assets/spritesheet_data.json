@@ -1,0 +1,69 @@
+{
+  "background": {
+    "name": "background-00",
+    "position": {
+      "x": 3,
+      "y": 0,
+      "w": 143,
+      "h": 255
+    }
+  },
+  "ground": {
+    "name": "ground",
+    "position": {
+      "x": 215,
+      "y": 10,
+      "w": 143,
+      "h": 55
+    }
+  },
+  "pipes": [
+    {
+      "name": "sprite-00",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      }
+    },
+    {
+      "name": "sprite-01",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      }
+    }
+  ],
+  "bird": [
+    {
+      "name": "sprite-00",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      }
+    },
+    {
+      "name": "sprite-01",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      }
+    },
+    {
+      "name": "sprite-02",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      }
+    }
+  ]
+}
