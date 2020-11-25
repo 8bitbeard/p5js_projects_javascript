@@ -22,20 +22,26 @@ function draw() {
   background(0);
   bird.edge();
   bird.update();
-  bird.show();
 
-  if (frameCount % 80 == 0) {
+  if (frameCount % 80 == 0 && bird.alive) {
     pipes.push(new Pipe());
   }
 
   for (var i = pipes.length - 1; i >= 0; i--) {
-    pipes[i].update();
+    if (bird.alive) {
+      pipes[i].move();
+    }
     pipes[i].show();
     if (bird.hits(pipes[i])) {
-      console.log('HITS')
+      bird.alive = false;
     }
     if (pipes[i].edge()) {
       pipes.splice(i, 1);
     }
+    if (pipes[i].pass(bird)) {
+      console.log("POINT!")
+    }
   }
+
+  bird.show();
 }

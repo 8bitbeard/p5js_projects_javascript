@@ -10,6 +10,8 @@ class Bird {
     this.velocity = 0;
     this.airFriction = 0.9;
     this.flapForce = -24;
+
+    this.alive = true;
   }
 
   update() {
@@ -39,9 +41,15 @@ class Bird {
     return false;
   }
 
+  pass(object) {
+
+  }
+
   flap() {
-    this.velocity += this.flapForce;
-    this.angle -= PI;
+    if (this.alive) {
+      this.velocity += this.flapForce;
+      this.angle -= PI;
+    }
   }
 
   show() {
