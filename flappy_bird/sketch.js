@@ -1,3 +1,4 @@
+var score;
 var bird;
 var pipes = [];
 
@@ -8,8 +9,13 @@ var pipes = [];
 
 function setup() {
   createCanvas(400, 600);
+  newGame();
+}
+
+function newGame() {
+  score = new Score();
   bird = new Bird();
-  pipe = new Pipe();
+  pipes = [];
 }
 
 function keyPressed() {
@@ -18,12 +24,23 @@ function keyPressed() {
   }
 }
 
+function mousePressed() {
+  if (mouseButton === LEFT) {
+    if(!bird.alive) {
+      console.log('inside')
+      newGame();
+    } else {
+      bird.flap();
+    }
+  }
+}
+
 function draw() {
   background(0);
   bird.edge();
   bird.update();
 
-  if (frameCount % 80 == 0 && bird.alive) {
+  if (frameCount % 40 == 0 && bird.alive) {
     pipes.push(new Pipe());
   }
 
@@ -39,9 +56,10 @@ function draw() {
       pipes.splice(i, 1);
     }
     if (pipes[i].pass(bird)) {
-      console.log("POINT!")
+      score.update()
     }
   }
 
   bird.show();
+  score.show();
 }

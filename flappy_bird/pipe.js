@@ -2,7 +2,7 @@ class Pipe {
 
   constructor() {
     this.w = 60;
-    this.g = 140;
+    this.g = 130;
 
     this.x = width + this.w/2;
     this.y = Math.floor(Math.random() * 200) + 150
@@ -10,7 +10,7 @@ class Pipe {
     // this.x = mouseX;
     // this.y = mouseY;
 
-    this.velocity = -3;
+    this.velocity = -5;
 
     this.counted = false;
   }

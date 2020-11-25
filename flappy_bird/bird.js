@@ -1,6 +1,6 @@
 class Bird {
   constructor() {
-    this.x = width/2;
+    this.x = 100;
     this.y = height/2;
     this.r = 40;
 
@@ -18,14 +18,15 @@ class Bird {
     this.velocity += this.gravity;
     this.velocity *= this.airFriction;
     this.y += this.velocity;
-    this.angle += PI/32;
+    this.angle += PI/48;
     this.angle = constrain(this.angle, -PI/4, PI/2)
   }
 
   edge() {
-    if (this.y > height) {
+    if (this.y + this.r/2 > height) {
       this.velocity = 0;
-      this.y = height;
+      this.y = height - this.r / 2;
+      this.alive = false;
     } else if (this.y < 0) {
       this.velocity = 0;
       this.y = 0;
@@ -39,10 +40,6 @@ class Bird {
       }
     }
     return false;
-  }
-
-  pass(object) {
-
   }
 
   flap() {
