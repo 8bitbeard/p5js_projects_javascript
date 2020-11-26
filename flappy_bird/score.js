@@ -2,7 +2,7 @@ class Score {
 
   constructor() {
     this.x = width / 2;
-    this.y = 50;
+    this.y = 30;
 
     this.value = 0;
     this.images = this.getImages();

@@ -6,6 +6,8 @@ var grounds = [];
 var bgImage;
 var gdImage;
 var homeScreenModels = [];
+var getReadyScreenModels = [];
+var gameOverScreenModels = [];
 var birdModels = [];
 var pipeModels = [];
 var bigNumberModels = [];
@@ -38,6 +40,20 @@ function getImages() {
     homeScreenModels.push(img);
   }
 
+  let getReadyScreenImages = spritedata.getReadyScreen;
+  for (var i = 0; i < getReadyScreenImages.length; i++) {
+    let pos = getReadyScreenImages[i].position;
+    let img = spritesheet.get(pos.x, pos.y, pos.w, pos.h);
+    getReadyScreenModels.push(img);
+  }
+
+  let gameOverScreenImages = spritedata.gameOverScreen;
+  for (var i = 0; i < gameOverScreenImages.length; i++) {
+    let pos = gameOverScreenImages[i].position;
+    let img = spritesheet.get(pos.x, pos.y, pos.w, pos.h);
+    gameOverScreenModels.push(img);
+  }
+
   let birdImages = spritedata.bird;
   for (var i = 0; i < birdImages.length; i++) {
     let pos = birdImages[i].position;
@@ -68,6 +84,7 @@ function getImages() {
 }
 
 function newGame() {
+  gameState = 0;
   score = new Score();
   bird = new Bird();
   pipes = [];
@@ -77,8 +94,10 @@ function keyPressed() {
   if (key == ' ') {
     if (gameState === 0) {
       gameState = 1;
-      bird.flap();
     } else if (gameState === 1) {
+      gameState = 2;
+      bird.flap();
+    } else if (gameState === 2) {
       bird.flap();
     }
   }
@@ -110,9 +129,30 @@ function homeScreen() {
   push();
   imageMode(CENTER)
   image(homeScreenModels[0], width/2, 80)
-  image(homeScreenModels[1], width/2, 130)
-  image(homeScreenModels[2], width/2, 160)
   pop();
+}
+
+function getReadyScreen() {
+  image(bgImage,0, 0)
+  score.show();
+  bird.show();
+  for(var i = grounds.length - 1; i >= 0; i--) {
+    if (bird.alive) {
+      grounds[i].move();
+    }
+    grounds[i].show()
+    if (grounds[i].edge()) {
+      grounds.push(new Ground(width));
+      grounds.splice(i, 1);
+    }
+  }
+  push();
+  imageMode(CENTER)
+  image(getReadyScreenModels[0], width/2, 80)
+  image(getReadyScreenModels[1], width/2, 130)
+  image(getReadyScreenModels[2], width/2, 160)
+  pop();
+
 }
 
 function inProgress() {
@@ -124,13 +164,26 @@ function inProgress() {
     pipes.push(new Pipe());
   }
 
+  // for (var i = pipes.length - 1; i >= 0; i--) {
+  //   if (bird.alive) {
+  //     pipes[i].move();
+  //   }
+  //   pipes[i].show();
+  //   if (bird.hits(pipes[i])) {
+  //     bird.alive = false;
+  //   }
+  //   if (pipes[i].edge()) {
+  //     pipes.splice(i, 1);
+  //   }
+  //   if (pipes[i].pass(bird)) {
+  //     score.update()
+  //   }
   for (var i = pipes.length - 1; i >= 0; i--) {
-    if (bird.alive) {
-      pipes[i].move();
-    }
+    pipes[i].move();
     pipes[i].show();
     if (bird.hits(pipes[i])) {
       bird.alive = false;
+      gameState = 3;
     }
     if (pipes[i].edge()) {
       pipes.splice(i, 1);
@@ -142,6 +195,7 @@ function inProgress() {
 
   bird.show();
   score.show();
+
   for(var i = grounds.length - 1; i >= 0; i--) {
     if (bird.alive) {
       grounds[i].move();
@@ -154,10 +208,41 @@ function inProgress() {
   }
 }
 
+function gameOver() {
+  image(bgImage,0, 0)
+  bird.edge();
+  bird.update();
+  for (var i = pipes.length - 1; i >= 0; i--) {
+    pipes[i].show();
+  }
+  bird.show();
+
+  for(var i = grounds.length - 1; i >= 0; i--) {
+    if (bird.alive) {
+      grounds[i].move();
+    }
+    grounds[i].show()
+    if (grounds[i].edge()) {
+      grounds.push(new Ground(width));
+      grounds.splice(i, 1);
+    }
+  }
+
+  push();
+  imageMode(CENTER)
+  image(gameOverScreenModels[0], width/2, 80)
+  image(gameOverScreenModels[1], width/2, 130)
+  pop();
+}
+
 function draw() {
   if (gameState === 0) {
     homeScreen();
   } else if (gameState === 1) {
+    getReadyScreen();
+  } else if (gameState === 2) {
     inProgress();
+  } else {
+    gameOver();
   }
 }
