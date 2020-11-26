@@ -203,7 +203,6 @@ function inProgress() {
     pipes[i].show();
     if (bird.hits(pipes[i])) {
       bird.alive = false;
-      gameState = 3;
     }
     if (pipes[i].edge()) {
       pipes.splice(i, 1);
@@ -225,6 +224,9 @@ function inProgress() {
       grounds.push(new Ground(width));
       grounds.splice(i, 1);
     }
+  }
+  if (!bird.alive) {
+    gameState = 3;
   }
 }
 
