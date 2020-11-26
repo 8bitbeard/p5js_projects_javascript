@@ -1,15 +1,15 @@
 class Bird {
   constructor() {
-    this.x = 100;
+    this.x = 30;
     this.y = height/2;
-    this.r = 40;
+    this.r = 17;
 
     this.angle = 0;
 
-    this.gravity = 1.3;
+    this.gravity = 0.5;
     this.velocity = 0;
     this.airFriction = 0.9;
-    this.flapForce = -24;
+    this.flapForce = -10;
 
     this.alive = true;
   }
@@ -23,9 +23,9 @@ class Bird {
   }
 
   edge() {
-    if (this.y + this.r/2 > height) {
+    if (this.y + this.r/2 > 220) {
       this.velocity = 0;
-      this.y = height - this.r / 2;
+      this.y = 220 - this.r / 2;
       this.alive = false;
     } else if (this.y < 0) {
       this.velocity = 0;
@@ -52,11 +52,13 @@ class Bird {
   show() {
     push()
     fill(255);
-    ellipseMode(CENTER)
+    noSmooth();
+    imageMode(CENTER)
     translate(this.x, this.y)
     rotate(this.angle)
-    ellipse(0, 0, this.r, this.r)
-    line(0, 0, 15, 0)
+    // ellipseMode(CENTER)
+    // ellipse(0, 0, this.r, this.r)
+    image(birdModels[0], 0, 0)
     pop()
   }
 }
