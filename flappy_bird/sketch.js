@@ -7,6 +7,7 @@ var bgImage;
 var gdImage;
 var birdModels = [];
 var pipeModels = [];
+var bigNumberModels = [];
 
 function preload() {
   spritedata = loadJSON('assets/spritesheet_data.json');
@@ -14,6 +15,19 @@ function preload() {
 }
 
 function setup() {
+  var canvas = createCanvas(142, 255);
+  canvas.style("width", width*2.5+"px");
+  canvas.style("height", height*2.5+"px");
+  noSmooth();
+
+  getImages();
+
+  grounds.push(new Ground(0));
+  grounds.push(new Ground(width));
+  newGame();
+}
+
+function getImages() {
   let birdImages = spritedata.bird;
   for (var i = 0; i < birdImages.length; i++) {
     let pos = birdImages[i].position;
@@ -35,10 +49,12 @@ function setup() {
   let ground = spritedata.ground;
   gdImage = spritesheet.get(ground.position.x, ground.position.y, ground.position.w, ground.position.h)
 
-  createCanvas(142, 255);
-  grounds.push(new Ground(0));
-  grounds.push(new Ground(width));
-  newGame();
+  let bigNumber = spritedata.bigNumbers;
+  for (var i = 0; i < bigNumber.length; i++) {
+    let pos = bigNumber[i].position;
+    let img = spritesheet.get(pos.x, pos.y, pos.w, pos.h);
+    bigNumberModels.push(img)
+  }
 }
 
 function newGame() {
