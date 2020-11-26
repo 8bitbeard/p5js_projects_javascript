@@ -5,6 +5,12 @@ var bird;
 var pipes = [];
 var grounds = [];
 
+var dieSound;
+var hitSound;
+var pointSound;
+var swooshSound;
+var flapSound;
+
 var bgImage;
 var gdImage;
 var homeScreenModels = [];
@@ -22,6 +28,7 @@ var gameState = 0;
 function preload() {
   spritedata = loadJSON('assets/spritesheet_data.json');
   spritesheet = loadImage('assets/spritesheet.png');
+  getSounds();
 }
 
 function setup() {
@@ -36,6 +43,14 @@ function setup() {
   grounds.push(new Ground(width));
   score = new Score();
   newGame();
+}
+
+function getSounds() {
+  dieSound = loadSound('assets/sound/sfx_die.wav');
+  hitSound = loadSound('assets/sound/sfx_hit.wav');
+  pointSound = loadSound('assets/sound/sfx_point.wav');
+  swooshSound = loadSound('assets/sound/sfx_swooshing.wav');
+  flapSound = loadSound('assets/sound/sfx_wing.wav');
 }
 
 function getImages() {
@@ -120,8 +135,10 @@ function keyPressed() {
   if (key == ' ') {
     if (gameState === 1) {
       gameState = 2;
+      flapSound.play();
       bird.flap();
     } else if (gameState === 2) {
+      flapSound.play();
       bird.flap();
     }
   }
@@ -131,6 +148,7 @@ function mousePressed() {
   if (gameState === 0) {
     if (mouseX > 15 && mouseX < 66 && mouseY > 155 && mouseY < 184) {
       gameState = 1;
+      swooshSound.play();
     }
   } else if(gameState === 1) {
       gameState = 2;
@@ -141,6 +159,7 @@ function mousePressed() {
     if (mouseX > 15 && mouseX < 67 && mouseY > 185 && mouseY < 214) {
       newGame();
       gameState = 1;
+      swooshSound.play();
     }
   }
 }
@@ -202,12 +221,14 @@ function inProgress() {
     pipes[i].move();
     pipes[i].show();
     if (bird.hits(pipes[i])) {
+      hitSound.play();
       bird.alive = false;
     }
     if (pipes[i].edge()) {
       pipes.splice(i, 1);
     }
     if (pipes[i].pass(bird)) {
+      pointSound.play();
       score.update()
     }
   }
