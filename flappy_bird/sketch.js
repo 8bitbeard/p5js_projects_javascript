@@ -15,6 +15,7 @@ var pipeModels = [];
 var smallNumberModels = [];
 var mediumNumberModels = [];
 var bigNumberModels = [];
+var medalModels = [];
 
 var gameState = 0;
 
@@ -99,6 +100,13 @@ function getImages() {
     let pos = bigNumber[i].position;
     let img = spritesheet.get(pos.x, pos.y, pos.w, pos.h);
     bigNumberModels.push(img)
+  }
+
+  let medals = spritedata.medals;
+  for (var i = 0; i < medals.length; i++) {
+    let pos = medals[i].position;
+    let img = spritesheet.get(pos.x, pos.y, pos.w, pos.h);
+    medalModels.push(img)
   }
 }
 
@@ -248,14 +256,17 @@ function gameOver() {
   image(gameOverScreenModels[2], width/2 - 30, 200)
   image(gameOverScreenModels[3], width/2 + 30, 200)
   if (score.newHighScore) {
-    image(gameOverScreenModels[4], width/2 + 19, 144)
+    image(gameOverScreenModels[4], width/2 + 18, 144)
+  }
+  let medal = constrain(floor(score.score / 10), 0, 3)
+  if (medal >= 1) {
+    image(medalModels[medal - 1], width/2 - 32, 144)
   }
   pop();
   score.show(2);
 }
 
 function draw() {
-  console.log(mouseX, mouseY);
   if (gameState === 0) {
     homeScreen();
   } else if (gameState === 1) {
