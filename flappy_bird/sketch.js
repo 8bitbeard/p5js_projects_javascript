@@ -1,3 +1,5 @@
+var pixelScale = 2.6;
+
 var score;
 var bird;
 var pipes = [];
@@ -21,8 +23,8 @@ function preload() {
 
 function setup() {
   var canvas = createCanvas(142, 255);
-  canvas.style("width", width*2.5+"px");
-  canvas.style("height", height*2.5+"px");
+  canvas.style("width", width*pixelScale+"px");
+  canvas.style("height", height*pixelScale+"px");
   noSmooth();
 
   getImages();
@@ -99,16 +101,8 @@ function keyPressed() {
       bird.flap();
     } else if (gameState === 2) {
       bird.flap();
-    }
-  }
-}
-
-function mousePressed() {
-  if (mouseButton === LEFT) {
-    if(!bird.alive) {
-      newGame();
     } else {
-      bird.flap();
+      newGame();
     }
   }
 }
@@ -164,20 +158,6 @@ function inProgress() {
     pipes.push(new Pipe());
   }
 
-  // for (var i = pipes.length - 1; i >= 0; i--) {
-  //   if (bird.alive) {
-  //     pipes[i].move();
-  //   }
-  //   pipes[i].show();
-  //   if (bird.hits(pipes[i])) {
-  //     bird.alive = false;
-  //   }
-  //   if (pipes[i].edge()) {
-  //     pipes.splice(i, 1);
-  //   }
-  //   if (pipes[i].pass(bird)) {
-  //     score.update()
-  //   }
   for (var i = pipes.length - 1; i >= 0; i--) {
     pipes[i].move();
     pipes[i].show();

@@ -30,10 +30,6 @@ class Pipe {
 
   show() {
     push()
-    // fill(0,255,0);
-    // rectMode(CORNER);
-    // rect(this.x, this.y - 160 - this.g/2, this.w, 160)
-    // rect(this.x, this.y + this.g/2, this.w, 160)
     imageMode(CORNER);
     image(pipeModels[0], this.x - this.w/2, this.y - 160 - this.g/2)
     image(pipeModels[1], this.x - this.w/2, this.y + this.g/2)
