@@ -12,13 +12,18 @@ class Bird {
     this.flapForce = -10;
 
     this.alive = true;
+
+    this.floatAngle = 0.0;
+    this.floatInc = PI / 32;
   }
 
   update() {
     this.velocity += this.gravity;
     this.velocity *= this.airFriction;
     this.y += this.velocity;
-    this.angle += PI/48;
+    if (this.velocity > 2) {
+      this.angle += PI/40;
+    }
     this.angle = constrain(this.angle, -PI/4, PI/2)
   }
 
@@ -49,16 +54,23 @@ class Bird {
     }
   }
 
+  float(pos) {
+    push()
+    let x = (pos) ? pos : this.x;
+    let y = floor(5 * sin(this.floatAngle))
+    imageMode(CENTER)
+    translate(x, this.y)
+    this.floatAngle+= this.floatInc
+    image(birdModels[floor(frameCount / 10) % 4], 0, y)
+    pop()
+  }
+
   show() {
     push()
-    fill(255);
-    noSmooth();
     imageMode(CENTER)
     translate(this.x, this.y)
     rotate(this.angle)
-    // ellipseMode(CENTER)
-    // ellipse(0, 0, this.r, this.r)
-    image(birdModels[0], 0, 0)
+    image(birdModels[floor(frameCount / 5) % 4], 0, 0)
     pop()
   }
 }

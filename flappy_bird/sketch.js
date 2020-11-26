@@ -68,7 +68,6 @@ function getImages() {
   }
 
   let pipeImages = spritedata.pipes;
-  console.log(pipeImages)
   for (var i = 0; i < pipeImages.length; i++) {
     let pos = pipeImages[i].position;
     let img = spritesheet.get(pos.x, pos.y, pos.w, pos.h);
@@ -148,7 +147,7 @@ function mousePressed() {
 
 function homeScreen() {
   image(bgImage,0, 0)
-  bird.show();
+  bird.float(width/2);
   for(var i = grounds.length - 1; i >= 0; i--) {
     if (bird.alive) {
       grounds[i].move();
@@ -170,7 +169,7 @@ function homeScreen() {
 function getReadyScreen() {
   image(bgImage,0, 0)
   score.show(1);
-  bird.show();
+  bird.float();
   for(var i = grounds.length - 1; i >= 0; i--) {
     if (bird.alive) {
       grounds[i].move();
