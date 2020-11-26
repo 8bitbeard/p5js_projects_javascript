@@ -12,6 +12,8 @@ var getReadyScreenModels = [];
 var gameOverScreenModels = [];
 var birdModels = [];
 var pipeModels = [];
+var smallNumberModels = [];
+var mediumNumberModels = [];
 var bigNumberModels = [];
 
 var gameState = 0;
@@ -31,6 +33,7 @@ function setup() {
 
   grounds.push(new Ground(0));
   grounds.push(new Ground(width));
+  score = new Score();
   newGame();
 }
 
@@ -77,6 +80,20 @@ function getImages() {
   let ground = spritedata.ground;
   gdImage = spritesheet.get(ground.position.x, ground.position.y, ground.position.w, ground.position.h)
 
+  let smallNumbers = spritedata.smallNumbers;
+  for (var i = 0; i < smallNumbers.length; i++) {
+    let pos = smallNumbers[i].position;
+    let img = spritesheet.get(pos.x, pos.y, pos.w, pos.h);
+    smallNumberModels.push(img)
+  }
+
+  let mediumNumbers = spritedata.mediumNumbers;
+  for (var i = 0; i < mediumNumbers.length; i++) {
+    let pos = mediumNumbers[i].position;
+    let img = spritesheet.get(pos.x, pos.y, pos.w, pos.h);
+    mediumNumberModels.push(img)
+  }
+
   let bigNumber = spritedata.bigNumbers;
   for (var i = 0; i < bigNumber.length; i++) {
     let pos = bigNumber[i].position;
@@ -87,22 +104,36 @@ function getImages() {
 
 function newGame() {
   gameState = 0;
-  score = new Score();
+  score.restart();
   bird = new Bird();
   pipes = [];
 }
 
 function keyPressed() {
   if (key == ' ') {
-    if (gameState === 0) {
-      gameState = 1;
-    } else if (gameState === 1) {
+    if (gameState === 1) {
       gameState = 2;
       bird.flap();
     } else if (gameState === 2) {
       bird.flap();
-    } else {
+    }
+  }
+}
+
+function mousePressed() {
+  if (gameState === 0) {
+    if (mouseX > 15 && mouseX < 66 && mouseY > 155 && mouseY < 184) {
+      gameState = 1;
+    }
+  } else if(gameState === 1) {
+      gameState = 2;
+      bird.flap();
+  } else if (gameState === 2) {
+      bird.flap();
+  } else if (gameState === 3) {
+    if (mouseX > 15 && mouseX < 67 && mouseY > 185 && mouseY < 214) {
       newGame();
+      gameState = 1;
     }
   }
 }
@@ -123,12 +154,14 @@ function homeScreen() {
   push();
   imageMode(CENTER)
   image(homeScreenModels[0], width/2, 80)
+  image(homeScreenModels[1], width/2 - 30, 170)
+  image(homeScreenModels[2], width/2 + 30, 170)
   pop();
 }
 
 function getReadyScreen() {
   image(bgImage,0, 0)
-  score.show();
+  score.show(1);
   bird.show();
   for(var i = grounds.length - 1; i >= 0; i--) {
     if (bird.alive) {
@@ -174,7 +207,7 @@ function inProgress() {
   }
 
   bird.show();
-  score.show();
+  score.show(1);
 
   for(var i = grounds.length - 1; i >= 0; i--) {
     if (bird.alive) {
@@ -211,11 +244,18 @@ function gameOver() {
   push();
   imageMode(CENTER)
   image(gameOverScreenModels[0], width/2, 80)
-  image(gameOverScreenModels[1], width/2, 130)
+  image(gameOverScreenModels[1], width/2, 140)
+  image(gameOverScreenModels[2], width/2 - 30, 200)
+  image(gameOverScreenModels[3], width/2 + 30, 200)
+  if (score.newHighScore) {
+    image(gameOverScreenModels[4], width/2 + 19, 144)
+  }
   pop();
+  score.show(2);
 }
 
 function draw() {
+  console.log(mouseX, mouseY);
   if (gameState === 0) {
     homeScreen();
   } else if (gameState === 1) {

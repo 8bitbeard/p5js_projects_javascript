@@ -2,7 +2,7 @@ class Pipe {
 
   constructor() {
     this.w = 25;
-    this.g = 60;
+    this.g = 55;
 
     this.x = width + this.w/2;
     this.y = height/2 + random(-80, 30);
