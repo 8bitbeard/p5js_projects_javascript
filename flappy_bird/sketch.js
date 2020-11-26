@@ -5,9 +5,12 @@ var grounds = [];
 
 var bgImage;
 var gdImage;
+var homeScreenModels = [];
 var birdModels = [];
 var pipeModels = [];
 var bigNumberModels = [];
+
+var gameState = 0;
 
 function preload() {
   spritedata = loadJSON('assets/spritesheet_data.json');
@@ -28,6 +31,13 @@ function setup() {
 }
 
 function getImages() {
+  let homeScreenImages = spritedata.homeScreen;
+  for (var i = 0; i < homeScreenImages.length; i++) {
+    let pos = homeScreenImages[i].position;
+    let img = spritesheet.get(pos.x, pos.y, pos.w, pos.h);
+    homeScreenModels.push(img);
+  }
+
   let birdImages = spritedata.bird;
   for (var i = 0; i < birdImages.length; i++) {
     let pos = birdImages[i].position;
@@ -65,7 +75,12 @@ function newGame() {
 
 function keyPressed() {
   if (key == ' ') {
-    bird.flap();
+    if (gameState === 0) {
+      gameState = 1;
+      bird.flap();
+    } else if (gameState === 1) {
+      bird.flap();
+    }
   }
 }
 
@@ -79,8 +94,28 @@ function mousePressed() {
   }
 }
 
-function draw() {
-  background(0);
+function homeScreen() {
+  image(bgImage,0, 0)
+  bird.show();
+  for(var i = grounds.length - 1; i >= 0; i--) {
+    if (bird.alive) {
+      grounds[i].move();
+    }
+    grounds[i].show()
+    if (grounds[i].edge()) {
+      grounds.push(new Ground(width));
+      grounds.splice(i, 1);
+    }
+  }
+  push();
+  imageMode(CENTER)
+  image(homeScreenModels[0], width/2, 80)
+  image(homeScreenModels[1], width/2, 130)
+  image(homeScreenModels[2], width/2, 160)
+  pop();
+}
+
+function inProgress() {
   image(bgImage,0, 0)
   bird.edge();
   bird.update();
@@ -116,5 +151,13 @@ function draw() {
       grounds.push(new Ground(width));
       grounds.splice(i, 1);
     }
+  }
+}
+
+function draw() {
+  if (gameState === 0) {
+    homeScreen();
+  } else if (gameState === 1) {
+    inProgress();
   }
 }
