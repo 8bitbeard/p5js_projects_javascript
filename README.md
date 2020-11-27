@@ -29,4 +29,7 @@ You can view/interact with the projects trough mine Github Pages. See the list b
 # Side Projects / Study:
 - 7 Segments Display: https://8bitbeard.github.io/p5_projects/7_segments_display/
 - Fireworks: https://8bitbeard.github.io/p5_projects/fireworks/
+
+# Algorithms Visualization:
 - Flocking Simulation: https://8bitbeard.github.io/p5_projects/flocking_simulation/
+- Quadtree: https://8bitbeard.github.io/p5_projects/quadtree/
