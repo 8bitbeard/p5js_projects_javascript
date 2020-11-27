@@ -8,6 +8,7 @@ You can view/interact with the projects trough mine Github Pages. See the list b
 - Bomber Man
 - Bricks
 - Chess
+- Frogger
 - Memory Game
 - Pacman
 - Tetris
