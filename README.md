@@ -9,8 +9,10 @@ You can view/interact with the projects trough mine Github Pages. See the list b
 - Bricks
 - Chess
 - Frogger
+- Hexic
 - Memory Game
 - Pacman
+- Rubiks Cube
 - Tetris
 
 # In Progress:
