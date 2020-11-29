@@ -121,20 +121,12 @@ class Boid {
   }
 
   show() {
-    var angle = this.velocity.heading() + PI / 2;
     push();
-    // translate(this.position.x, this.position.y);
-    // rotate(angle)
+    translate(this.position.x, this.position.y);
+    rotate(this.velocity.heading() - PI / 2)
     noFill();
     stroke(255);
-    triangle(
-      this.position.x - 4,
-      this.position.y - 4,
-      this.position.x,
-      this.position.y + 8,
-      this.position.x + 4,
-      this.position.y - 4
-    );
+    triangle(0 - 4, 0 - 4, 0, 0 + 8, 0 + 4, 0 - 4);
     pop();
   }
 }
