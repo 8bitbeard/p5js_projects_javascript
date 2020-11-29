@@ -2,9 +2,10 @@
 This repository contains all the projects i created while stidying Javascript.
 Here you can find some arcade games reproduced on javascript with the help of the P5.js library.
 
-You can view/interact with the projects trough mine Github Pages. See the list below:
+You can view/interact with the projects trough my Github Pages. See the list below:
 
 # Todo List:
+## Games:
 - Bomber Man
 - Bricks
 - Chess
@@ -14,6 +15,8 @@ You can view/interact with the projects trough mine Github Pages. See the list b
 - Pacman
 - Rubiks Cube
 - Tetris
+## Algorithms:
+- Genetic Algorithms
 
 # In Progress:
 - Agar.io: https://8bitbeard.github.io/p5_projects/agario/
