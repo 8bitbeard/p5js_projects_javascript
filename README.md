@@ -14,12 +14,12 @@ You can view/interact with the projects trough my Github Pages. See the list bel
 - Memory Game
 - Pacman
 - Rubiks Cube
-- Tetris
 ## Algorithms:
 - Genetic Algorithms
 
 # In Progress:
 - Agar.io: https://8bitbeard.github.io/p5_projects/agario/
+- Tetris: https://8bitbeard.github.io/p5_projects/tetris/
 
 # Needs Improovement:
 - Asteroids: https://8bitbeard.github.io/p5_projects/asteroids/
