@@ -23,6 +23,29 @@ class Piece {
     }))
   }
 
+  rotateMatrix() {
+    this.shape.reverse()[0].map((column, index) => {
+      this.shape.map(row => row[index])
+    })
+  }
+
+  transposeMatrix() {
+    let dimension = this.shape.length;
+    let aux = Array.from( new Array(dimension), element => Array.from(new Array(dimension), x => null) );
+    this.shape.forEach( (row, i) => row.forEach( (col, j) => aux[j][i] = col));
+    this.shape = aux;
+  }
+
+  rotatePiece() {
+    this.transposeMatrix();
+    this.rotateMatrix();
+    this.updatePiecePosition();
+  }
+
+  canCollide(callbackfn) {
+    return this.shape.reduce( (z, row) => z.concat(row.filter(col => col != null).filter( box => callbackfn(box))), []).length > 0
+  }
+
   show() {
     this.updatePiecePosition();
     this.shape.forEach( x => x.filter( j => j != null).forEach(box => box.show()))

@@ -1,5 +1,6 @@
-const canvasWidth = 400;
+const canvasWidth = 420;
 const canvasHeight = 600;
+const begginingPoint = 0;
 const backgroundColor = 50;
 
 const boxDimension = 30;
@@ -12,40 +13,38 @@ const piece_O = [
 ];
 
 const piece_I = [
-  [1, null, null, null],
-  [1, null, null, null],
-  [1, null, null, null],
-  [1, null, null, null]
+  [1, 0, 0, 0],
+  [1, 0, 0, 0],
+  [1, 0, 0, 0],
+  [1, 0, 0, 0]
 ];
 
 const piece_S = [
-  [null, null, null],
-  [null, 1   , 1   ],
-  [1   , 1   , null]
+  [0, 0, 0],
+  [0, 1, 1],
+  [1, 1, 0]
 ];
 
 const piece_Z = [
-  [null, null, null],
-  [1   , 1   , null],
-  [null, 1   , 1   ]
+  [0, 0, 0],
+  [1, 1, 0],
+  [0, 1, 1]
 ];
 
-
 const piece_L = [
-  [1, null, null],
-  [1, null, null],
-  [1, 1   , null],
-
-]
+  [1, 0, 0],
+  [1, 0, 0],
+  [1, 1, 0],
+];
 
 const piece_J = [
-  [null, 1, null],
-  [null, 1, null],
-  [1   , 1, null]
-]
+  [0, 1, 0],
+  [0, 1, 0],
+  [1, 1, 0]
+];
 
 const piece_T = [
-  [null, null, null],
-  [1   , 1   , 1   ],
-  [null, 1   , null]
-]
+  [0, 0, 0],
+  [1, 1, 1],
+  [0, 1, 0]
+];
