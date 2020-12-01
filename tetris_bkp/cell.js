@@ -9,7 +9,6 @@ class Cell {
   }
 
   show() {
-    frameRate(2)
     push();
     if (this.empty) {
       fill(50)

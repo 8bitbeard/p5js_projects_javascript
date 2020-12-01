@@ -1,21 +1,16 @@
-var grid;
-var piece;
+let mybox;
 
 function setup() {
-  createCanvas(400, 600);
-  grid = new Grid(20, 10);
-}
-
-function keyPressed() {
-  if (keyCode === LEFT_ARROW) {
-    grid.piece.move(-1)
-  } else if (keyCode === RIGHT_ARROW) {
-    grid.piece.move(1);
-  }
+  createCanvas(canvasWidth, canvasHeight);
+  myBox = new Box(width/2, 0, boxDimension, {r:200, g:100, b:50});
+  setInterval( () => applyGravity(), timer);
 }
 
 function draw() {
-  background(0);
-  grid.update();
-  grid.show();
+  background(backgroundColor);
+  myBox.show();
+}
+
+function applyGravity() {
+  myBox.y += boxDimension;
 }
