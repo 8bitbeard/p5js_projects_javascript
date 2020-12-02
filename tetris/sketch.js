@@ -19,12 +19,17 @@ function draw() {
 }
 
 function generateNewPiece() {
-  let index = Math.floor(Math.random() * piece_S.length)
+  let index = Math.floor(Math.random() * pieces.length)
   myPiece = new Piece(pieces[index], width/2, boxDimension, {r: 200, g: 100, b: 50})
 }
 
 function applyGravity() {
-  myPiece.y += boxDimension;
+  if(!myPiece.canCollide(box => box.y + boxDimension === height)) {
+    myPiece.y += boxDimension;
+  } else {
+    platform.placePiece(myPiece);
+    generateNewPiece();
+  }
 }
 
 function keyPressed() {

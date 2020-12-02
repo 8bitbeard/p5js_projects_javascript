@@ -49,4 +49,4 @@ const piece_T = [
   [0, 1, 0]
 ];
 
-pieces = [piece_O, piece_S, piece_Z, piece_L, piece_J, piece_T];
+const pieces = [piece_O, piece_I, piece_S, piece_Z, piece_L, piece_J, piece_T];
