@@ -5,6 +5,8 @@ const backgroundColor = 50;
 
 const boxDimension = 30;
 
+const collisionMargin = 2;
+
 const timer = 500;
 
 const piece_O = [

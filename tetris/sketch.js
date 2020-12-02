@@ -24,7 +24,7 @@ function generateNewPiece() {
 }
 
 function applyGravity() {
-  if(!myPiece.canCollide(box => box.y + boxDimension === height)) {
+  if(!myPiece.canCollide(box => box.y + boxDimension === height) && !platform.piecesColliding(myPiece)) {
     myPiece.y += boxDimension;
   } else {
     platform.placePiece(myPiece);
@@ -36,10 +36,10 @@ function keyPressed() {
   if (keyCode === UP_ARROW) {
     myPiece.rotatePiece();
   }
-  if (keyCode === LEFT_ARROW && !myPiece.canCollide(box => box.x === begginingPoint)) {
+  if (keyCode === LEFT_ARROW && !myPiece.canCollide(box => box.x === begginingPoint) && !platform.piecesColliding(myPiece)) {
     myPiece.x -= boxDimension;
   }
-  if (keyCode === RIGHT_ARROW && !myPiece.canCollide(box => box.x + boxDimension == width)) {
+  if (keyCode === RIGHT_ARROW && !myPiece.canCollide(box => box.x + boxDimension == width) && !platform.piecesColliding(myPiece)) {
     myPiece.x += boxDimension;
   }
   if (keyCode === DOWN_ARROW) {

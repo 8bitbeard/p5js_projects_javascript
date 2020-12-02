@@ -8,7 +8,7 @@ class Box {
 
   show() {
     let {r, g, b} = this.color;
-    stroke(0);
+    stroke(255);
     fill(r, g, b);
     rect(this.x, this.y, this.w, this.w)
   }

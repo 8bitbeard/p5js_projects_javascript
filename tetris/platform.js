@@ -23,6 +23,13 @@ class Platform {
     myPiece.shape.reduce( (z, row) => z.concat(row.filter( col => col != null)), []).forEach( box => this.platform[box.y / boxDimension][box.x / boxDimension] = box)
   }
 
+  piecesColliding(piece, collisionfn = (rect1, rect2) => rectCollision(rect1, rect2)) {
+    let boxes = piece.shape.reduce( (z, row) => z.concat(row.filter( col => col != null)), [])
+    let piecesInsidePlatform = this.platform.reduce( (z, row) => z.concat(row.filter( col => col != null)), [])
+
+    return boxes.reduce( (z, box) => piecesInsidePlatform.filter( p => collisionfn(box, p)).length > 0 ? true : z, false)
+  }
+
   showEmptyBox(x, y) {
     let {r, g, b} = this.color;
     fill(backgroundColor);
