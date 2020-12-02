@@ -32,9 +32,24 @@ class Platform {
 
   showEmptyBox(x, y) {
     let {r, g, b} = this.color;
-    fill(backgroundColor);
+    // fill(backgroundColor);
     stroke(r, g, b);
-    rect(x * this.w, y * this.w, this.w, this.w);
+    // rect(x * this.w, y * this.w, this.w, this.w);
     fill(backgroundColor);
+  }
+
+  cleanFilledRows() {
+    let preBoxes = this.countBoxes()
+    this.platform.forEach( (row, i) => {
+      if (row.every( box => box != null)) {
+        row.forEach( (element, j) => this.platform[i][j] = null)
+      }
+    })
+    let postBoxes = this.countBoxes()
+    preBoxes != postBoxes ? points += preBoxes - postBoxes : points
+  }
+
+  countBoxes() {
+    return this.platform.reduce( (z, row) => z + row.filter(element => element != null).length, 0)
   }
 }

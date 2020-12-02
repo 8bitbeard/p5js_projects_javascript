@@ -1,12 +1,14 @@
 let myBox;
 let myPiece;
 let platform;
+let points;
 
 function setup() {
   createCanvas(canvasWidth, canvasHeight);
   // myBox = new Box(width/2, 0, boxDimension, {r:200, g:100, b:50});
   platform = new Platform();
   // myPiece = new Piece(piece_J, width/2, boxDimension, {r: 200, g: 100, b: 50});
+  points = 0;
   generateNewPiece();
   setInterval( () => applyGravity(), timer);
 }
@@ -16,6 +18,7 @@ function draw() {
   // myBox.show();
   platform.show();
   myPiece.show()
+  drawText(points);
 }
 
 function generateNewPiece() {
@@ -28,6 +31,7 @@ function applyGravity() {
     myPiece.y += boxDimension;
   } else {
     platform.placePiece(myPiece);
+    platform.cleanFilledRows();
     generateNewPiece();
   }
 }
@@ -45,4 +49,13 @@ function keyPressed() {
   if (keyCode === DOWN_ARROW) {
     applyGravity();
   }
+}
+
+function drawText(pts) {
+  push();
+  textSize(16);
+  textAlign(RIGHT);
+  fill(255)
+  text(pts, canvasWidth, boxDimension);
+  pop();
 }
