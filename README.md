@@ -6,12 +6,10 @@ You can view/interact with the projects trough my Github Pages. See the list bel
 
 # Todo List:
 ## Games:
-- Bomber Man
 - Bricks
 - Chess
 - Frogger
 - Hexic
-- Memory Game
 - Pacman
 - Rubiks Cube
 ## Algorithms:
