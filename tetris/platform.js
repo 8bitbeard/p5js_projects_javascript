@@ -17,6 +17,8 @@ class Platform {
 
   show() {
     this.platform.forEach( (row, i) => row.forEach( (box, j) => box === null ? this.showEmptyBox(j, i) : box.show()));
+    line(begginingPoint, 0, begginingPoint, height)
+    line(endPoint, 0, endPoint, height)
   }
 
   placePiece(myPiece) {
@@ -39,6 +41,7 @@ class Platform {
   }
 
   cleanFilledRows() {
+    let value = 0;
     let preBoxes = this.countBoxes()
     this.platform.forEach( (row, i) => {
       if (row.every( box => box != null)) {
@@ -46,7 +49,9 @@ class Platform {
       }
     })
     let postBoxes = this.countBoxes()
-    preBoxes != postBoxes ? points += preBoxes - postBoxes : points
+    preBoxes != postBoxes ? value += preBoxes - postBoxes : value
+    console.log(value)
+    // return value;
   }
 
   countBoxes() {

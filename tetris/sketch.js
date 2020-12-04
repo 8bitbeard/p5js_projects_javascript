@@ -2,13 +2,14 @@ let myBox;
 let myPiece;
 let platform;
 let points;
+let score;
 
 function setup() {
   createCanvas(canvasWidth, canvasHeight);
   // myBox = new Box(width/2, 0, boxDimension, {r:200, g:100, b:50});
   platform = new Platform();
+  score = new Score( endPoint + (width - endPoint) / 2, 50);
   // myPiece = new Piece(piece_J, width/2, boxDimension, {r: 200, g: 100, b: 50});
-  points = 0;
   generateNewPiece();
   setInterval( () => applyGravity(), timer);
 }
@@ -18,7 +19,7 @@ function draw() {
   // myBox.show();
   platform.show();
   myPiece.show()
-  drawText(points);
+  score.show();
 }
 
 function generateNewPiece() {
@@ -27,11 +28,13 @@ function generateNewPiece() {
 }
 
 function applyGravity() {
+  let value;
   if(!myPiece.canCollide(box => box.y + boxDimension === height) && !platform.piecesColliding(myPiece)) {
     myPiece.y += boxDimension;
   } else {
     platform.placePiece(myPiece);
     platform.cleanFilledRows();
+    // score.addValue(score);
     generateNewPiece();
   }
 }
@@ -43,19 +46,10 @@ function keyPressed() {
   if (keyCode === LEFT_ARROW && !myPiece.canCollide(box => box.x === begginingPoint) && !platform.piecesColliding(myPiece)) {
     myPiece.x -= boxDimension;
   }
-  if (keyCode === RIGHT_ARROW && !myPiece.canCollide(box => box.x + boxDimension == width) && !platform.piecesColliding(myPiece)) {
+  if (keyCode === RIGHT_ARROW && !myPiece.canCollide(box => box.x + boxDimension == endPoint) && !platform.piecesColliding(myPiece)) {
     myPiece.x += boxDimension;
   }
   if (keyCode === DOWN_ARROW) {
     applyGravity();
   }
-}
-
-function drawText(pts) {
-  push();
-  textSize(16);
-  textAlign(RIGHT);
-  fill(255)
-  text(pts, canvasWidth, boxDimension);
-  pop();
 }
