@@ -9,7 +9,7 @@ class Platform {
   }
 
   generatePlatform() {
-    let platformWidth = canvasWidth / this.w;
+    let platformWidth = (endPoint - begginingPoint) / this.w;
     let platformHeight = canvasHeight / this.w;
     this.platform = Array.from( new Array(platformHeight), row =>
                     Array.from( new Array(platformWidth), col => null))
@@ -22,7 +22,7 @@ class Platform {
   }
 
   placePiece(myPiece) {
-    myPiece.shape.reduce( (z, row) => z.concat(row.filter( col => col != null)), []).forEach( box => this.platform[box.y / boxDimension][box.x / boxDimension] = box)
+    myPiece.shape.reduce( (z, row) => z.concat(row.filter( col => col != null)), []).forEach( box => this.platform[box.y / boxDimension][(box.x - begginingPoint) / boxDimension] = box)
   }
 
   piecesColliding(piece, collisionfn = (rect1, rect2) => rectCollision(rect1, rect2)) {

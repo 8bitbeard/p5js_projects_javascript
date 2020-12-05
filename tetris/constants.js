@@ -1,7 +1,9 @@
 const canvasWidth = 600;
 const canvasHeight = 600;
-const begginingPoint = 90;
-const endPoint = 510;
+
+const begginingPoint = 150;
+const endPoint = 450;
+
 const backgroundColor = 50;
 
 const boxDimension = 30;
