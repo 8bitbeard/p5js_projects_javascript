@@ -1,5 +1,6 @@
 let myBox;
 let myPiece;
+let nextPiece;
 let platform;
 let points;
 let score;
@@ -9,6 +10,7 @@ function setup() {
   // myBox = new Box(width/2, 0, boxDimension, {r:200, g:100, b:50});
   platform = new Platform();
   score = new Score( endPoint + (width - endPoint) / 2, 50);
+  nextPiece = new nextPieceDisplay( endPoint + (width - endPoint) / 2, 100, 15)
   // myPiece = new Piece(piece_J, width/2, boxDimension, {r: 200, g: 100, b: 50});
   generateNewPiece();
   setInterval( () => applyGravity(), timer);
@@ -20,11 +22,16 @@ function draw() {
   platform.show();
   myPiece.show()
   score.show();
+  nextPiece.show();
 }
 
-function generateNewPiece() {
-  let index = Math.floor(Math.random() * pieces.length)
-  myPiece = new Piece(pieces[index], width/2, 0)
+function generateNewPiece(piece) {
+  if (piece) {
+    myPiece = new Piece(piece, width/2, 0)
+  } else {
+    let index = Math.floor(Math.random() * pieces.length)
+    myPiece = new Piece(pieces[index], width/2, 0)
+  }
 }
 
 function applyGravity() {
@@ -34,9 +41,8 @@ function applyGravity() {
   } else {
     platform.placePiece(myPiece);
     value = platform.cleanFilledRows();
-    console.log(value);
     score.addValue(value);
-    generateNewPiece();
+    generateNewPiece(nextPiece.getNextPiece());
   }
 }
 

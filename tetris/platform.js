@@ -49,7 +49,6 @@ class Platform {
         counter += 1;
       }
     })
-    console.log(counter)
     return counter * singleLineScore + (counter * singleLineScore * floor(counter / 4));
   }
 

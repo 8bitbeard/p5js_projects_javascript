@@ -4,7 +4,7 @@ const canvasHeight = 600;
 const begginingPoint = 150;
 const endPoint = 450;
 
-const backgroundColor = 50;
+const backgroundColor = 0;
 
 const boxDimension = 30;
 
@@ -14,11 +14,14 @@ const timer = 500;
 
 const singleLineScore = 100;
 
+const previewPiecesNumber = 1;
+
 const piece_O = {
   "shape": [
     [1, 1],
     [1, 1]
   ],
+  "model": [[0,0], [2, 0], [2, 2], [0, 2]],
   "color": {
     r: 255,
     g: 255,
@@ -33,6 +36,7 @@ const piece_I = {
     [1, 0, 0, 0],
     [1, 0, 0, 0]
   ],
+  "model": [[0,0], [1, 0], [1, 3], [0, 3]],
   "color": {
     r: 0,
     g: 255,
@@ -46,6 +50,7 @@ const piece_S = {
     [0, 1, 1],
     [1, 1, 0]
   ],
+  "model": [[0,2], [1, 2], [1, 1], [3, 1], [3, 2], [2, 2], [2, 3], [0,3]],
   "color": {
     r: 0,
     g: 255,
@@ -59,6 +64,7 @@ const piece_Z = {
     [1, 1, 0],
     [0, 1, 1]
   ],
+  "model": [[0,1], [2, 1], [2, 2], [3, 2], [3, 3], [1, 3], [1, 2], [0,2]],
   "color": {
     r: 255,
     g: 0,
@@ -72,6 +78,7 @@ const piece_L = {
     [1, 0, 0],
     [1, 1, 0],
   ],
+  "model": [[0,0], [1, 0], [1, 2], [2, 2], [2, 3], [0, 3]],
   "color": {
     r: 255,
     g: 165,
@@ -85,6 +92,7 @@ const piece_J = {
     [0, 1, 0],
     [1, 1, 0]
   ],
+  "model": [[0,2], [1, 2], [1, 0], [2, 0], [2, 3], [0, 3]],
   "color": {
     r: 0,
     g: 0,
@@ -98,6 +106,7 @@ const piece_T = {
     [1, 1, 1],
     [0, 1, 0]
   ],
+  "model": [[0,1], [3, 1], [3, 2], [2, 2], [2, 3], [1, 3], [1, 2], [0, 2]],
   "color": {
     r: 128,
     g: 0,
