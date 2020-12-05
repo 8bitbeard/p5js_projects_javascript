@@ -12,6 +12,8 @@ const collisionMargin = 2;
 
 const timer = 500;
 
+const singleLineScore = 100;
+
 const piece_O = [
   [1, 1],
   [1, 1]

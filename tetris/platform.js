@@ -41,17 +41,39 @@ class Platform {
   }
 
   cleanFilledRows() {
-    let value = 0;
-    let preBoxes = this.countBoxes()
+    let counter = 0;
     this.platform.forEach( (row, i) => {
       if (row.every( box => box != null)) {
-        row.forEach( (element, j) => this.platform[i][j] = null)
+        row.forEach( (e, j) => this.platform[i][j] = null)
+        this.shiftBoxesDown(i)
+        counter += 1;
       }
     })
-    let postBoxes = this.countBoxes()
-    preBoxes != postBoxes ? value += preBoxes - postBoxes : value
-    console.log(value)
-    // return value;
+    console.log(counter)
+    return counter * singleLineScore + (counter * singleLineScore * floor(counter / 4));
+  }
+
+  shiftBoxesDown(lineIndex) {
+    for (let k = this.platform.length - 1; k > 0; k--) {
+      if (k <= lineIndex && this.platform[k - 1].some( box => box != null)) {
+        this.platform[k].forEach( (cols, l) => {
+          this.platform[k][l] = this.platform[k-1][l]
+          if (this.platform[k][l] != null) {
+            this.platform[k][l].y += boxDimension
+          }
+        })
+      }
+    }
+  }
+
+  resetRow(arr, old_index, new_index) {
+    if (new_index >= arr.length) {
+      var k = new_index - arr.length + 1;
+      while (k--) {
+          arr.push(undefined);
+      }
+    }
+    arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
   }
 
   countBoxes() {

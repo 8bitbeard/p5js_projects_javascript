@@ -24,7 +24,7 @@ function draw() {
 
 function generateNewPiece() {
   let index = Math.floor(Math.random() * pieces.length)
-  myPiece = new Piece(pieces[index], width/2, boxDimension, {r: 200, g: 100, b: 50})
+  myPiece = new Piece(pieces[index], width/2, 0, {r: 200, g: 100, b: 50})
 }
 
 function applyGravity() {
@@ -33,8 +33,9 @@ function applyGravity() {
     myPiece.y += boxDimension;
   } else {
     platform.placePiece(myPiece);
-    platform.cleanFilledRows();
-    // score.addValue(score);
+    value = platform.cleanFilledRows();
+    console.log(value);
+    score.addValue(value);
     generateNewPiece();
   }
 }
@@ -51,5 +52,11 @@ function keyPressed() {
   }
   if (keyCode === DOWN_ARROW) {
     applyGravity();
+  }
+  if (keyCode === 32) {
+    while(!myPiece.canCollide(box => box.y + boxDimension === height) && !platform.piecesColliding(myPiece)) {
+      applyGravity();
+      myPiece.show()
+    }
   }
 }
