@@ -8,8 +8,10 @@ class Box {
 
   show() {
     let {r, g, b} = this.color;
-    stroke(255);
+    push();
+    stroke(0);
     fill(r, g, b);
     rect(this.x, this.y, this.w, this.w)
+    pop();
   }
 }

@@ -24,7 +24,7 @@ function draw() {
 
 function generateNewPiece() {
   let index = Math.floor(Math.random() * pieces.length)
-  myPiece = new Piece(pieces[index], width/2, 0, {r: 200, g: 100, b: 50})
+  myPiece = new Piece(pieces[index], width/2, 0)
 }
 
 function applyGravity() {

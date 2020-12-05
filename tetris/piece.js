@@ -1,10 +1,10 @@
 class Piece {
-  constructor(originalShape = [[]], x = 0, y = 0, color = {r: 0, g: 0, b: 0}) {
-    this.originalShape = originalShape;
+  constructor(type, x = 0, y = 0) {
+    this.originalShape = type.shape;
     this.x = x;
     this.y = y;
-    this.color = color;
-    this.shape = this.fillPiece(originalShape.length);
+    this.color = type.color;
+    this.shape = this.fillPiece(this.originalShape.length);
   }
 
   fillPiece(pieceLength) {
