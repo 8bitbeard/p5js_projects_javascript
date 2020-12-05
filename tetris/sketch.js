@@ -10,7 +10,7 @@ function setup() {
   // myBox = new Box(width/2, 0, boxDimension, {r:200, g:100, b:50});
   platform = new Platform();
   score = new Score( endPoint + (width - endPoint) / 2, 50);
-  nextPiece = new nextPieceDisplay( endPoint + (width - endPoint) / 2, 100, 15)
+  nextPiece = new nextPieceDisplay( endPoint + (width - endPoint) / 2, 150, 15)
   // myPiece = new Piece(piece_J, width/2, boxDimension, {r: 200, g: 100, b: 50});
   generateNewPiece();
   setInterval( () => applyGravity(), timer);

@@ -37,9 +37,11 @@ class Piece {
   }
 
   rotatePiece() {
-    this.transposeMatrix();
-    this.rotateMatrix();
-    this.updatePiecePosition();
+    if (this.x >= begginingPoint && this.originalShape[0].length * boxDimension + this.x <= endPoint) {
+      this.transposeMatrix();
+      this.rotateMatrix();
+      this.updatePiecePosition();
+    }
   }
 
   canCollide(callbackfn) {

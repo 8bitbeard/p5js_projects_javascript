@@ -14,7 +14,8 @@ class Score {
     textSize(16);
     textAlign(CENTER);
     fill(255)
-    text(this.value, this.x, this.y);
+    text("SCORE", this.x, this.y)
+    text(this.value, this.x, this.y + 30);
     pop();
   }
 }
