@@ -12,6 +12,10 @@ You can view/interact with the projects trough my Github Pages. See the list bel
 - Hexic
 - Pacman
 - Rubiks Cube
+
+## Study
+- Port all games to typescript
+
 ## Algorithms:
 - Genetic Algorithms
 
