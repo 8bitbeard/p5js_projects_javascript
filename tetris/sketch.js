@@ -18,7 +18,6 @@ function setup() {
 
 function draw() {
   background(backgroundColor);
-  // myBox.show();
   platform.show();
   myPiece.show()
   score.show();
@@ -27,22 +26,24 @@ function draw() {
 
 function generateNewPiece(piece) {
   if (piece) {
-    myPiece = new Piece(piece, width/2, 0)
+    myPiece = new Piece(piece, width/2 - boxDimension, 0)
   } else {
     let index = Math.floor(Math.random() * pieces.length)
-    myPiece = new Piece(pieces[index], width/2, 0)
+    myPiece = new Piece(pieces[index], width/2 - boxDimension, 0)
   }
 }
 
 function applyGravity() {
-  let value;
   if(!myPiece.canCollide(box => box.y + boxDimension === height) && !platform.piecesColliding(myPiece)) {
-    myPiece.y += boxDimension;
-  } else {
+    myPiece.moveDown();
+  } else if (platform.animating) {
+
+  } else if (myPiece.moved) {
     platform.placePiece(myPiece);
-    value = platform.cleanFilledRows();
-    score.addValue(value);
+    score.addValue(platform.cleanFilledRows());
     generateNewPiece(nextPiece.getNextPiece());
+  } else {
+    console.log("Game Over")
   }
 }
 

@@ -28,7 +28,7 @@ class nextPieceDisplay {
     fill(r, g, b)
     stroke(r, g, b)
     for (let point of piece.model) {
-      vertex(this.x - piece.shape[0].length * this.w / 2 + point[0] * this.w, 20 + this.y + 80 * index + point[1] * this.w);
+      vertex(this.x - piece.shape[0].length * this.w / 2 + point[0] * this.w, 20 + this.y + 60 * index + point[1] * this.w);
     }
     endShape(CLOSE);
     pop()

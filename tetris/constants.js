@@ -14,7 +14,7 @@ const timer = 500;
 
 const singleLineScore = 100;
 
-const previewPiecesNumber = 1;
+const previewPiecesNumber = 2;
 
 const piece_O = {
   "shape": [

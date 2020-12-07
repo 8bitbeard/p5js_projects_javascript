@@ -5,6 +5,8 @@ class Platform {
     this.y = y;
     this.w = w;
     this.color = color;
+    this.animating = false;
+    this.counter = 0;
     this.generatePlatform();
   }
 
@@ -40,16 +42,38 @@ class Platform {
     fill(backgroundColor);
   }
 
-  cleanFilledRows() {
-    let counter = 0;
+  getFilledRows() {
+    let indexes = [];
     this.platform.forEach( (row, i) => {
       if (row.every( box => box != null)) {
-        row.forEach( (e, j) => this.platform[i][j] = null)
-        this.shiftBoxesDown(i)
-        counter += 1;
+        indexes.push(i)
       }
     })
-    return counter * singleLineScore + (counter * singleLineScore * floor(counter / 4));
+    if (indexes.length > 0) {
+      this.animating = true;
+    }
+    return indexes;
+  }
+
+  cleanFilledRows() {
+    if (this.animating) {
+      for (let row of this.getFilledRows()) {
+        this.platform[row][4 - floor(this.counter / 10)]
+      }
+    }
+
+    console.log(this.getFilledRows())
+
+
+    // let counter = 0;
+    // this.platform.forEach( (row, i) => {
+    //   if (row.every( box => box != null)) {
+    //     row.forEach( (e, j) => this.platform[i][j] = null)
+    //     this.shiftBoxesDown(i)
+    //     counter += 1;
+    //   }
+    // })
+    // return counter * singleLineScore + (counter * singleLineScore * floor(counter / 4));
   }
 
   shiftBoxesDown(lineIndex) {
@@ -63,16 +87,6 @@ class Platform {
         })
       }
     }
-  }
-
-  resetRow(arr, old_index, new_index) {
-    if (new_index >= arr.length) {
-      var k = new_index - arr.length + 1;
-      while (k--) {
-          arr.push(undefined);
-      }
-    }
-    arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
   }
 
   countBoxes() {

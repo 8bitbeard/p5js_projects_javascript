@@ -5,6 +5,7 @@ class Piece {
     this.y = y;
     this.color = type.color;
     this.shape = this.fillPiece(this.originalShape.length);
+    this.moved = false;
   }
 
   fillPiece(pieceLength) {
@@ -12,6 +13,11 @@ class Piece {
            Array.from( new Array(pieceLength), (col, j) =>
            this.originalShape[i][j] == 1 ? new Box(this.x + j * boxDimension, this.y + i * boxDimension, boxDimension, this.color) : null)
     )
+  }
+
+  moveDown() {
+    this.y += boxDimension;
+    this.moved = true;
   }
 
   updatePiecePosition() {
