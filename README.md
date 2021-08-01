@@ -20,24 +20,24 @@ You can view/interact with the projects trough my Github Pages. See the list bel
 - Genetic Algorithms
 
 # In Progress:
-- Agar.io: https://8bitbeard.github.io/p5_projects/agario/
-- Tetris: https://8bitbeard.github.io/p5_projects/tetris/
+- Agar.io: https://8bitbeard.github.io/p5js_projects_javascript/agario/
+- Tetris: https://8bitbeard.github.io/p5js_projects_javascript/tetris/
 
 # Needs Improovement:
-- Asteroids: https://8bitbeard.github.io/p5_projects/asteroids/
+- Asteroids: https://8bitbeard.github.io/p5js_projects_javascript/asteroids/
 
 # Done:
-- Flappy Bird: https://8bitbeard.github.io/p5_projects/flappy_bird/
-- Game of Life: https://8bitbeard.github.io/p5_projects/game_of_life/
-- Minesweeper: https://8bitbeard.github.io/p5_projects/minesweeper/
-- Pong: https://8bitbeard.github.io/p5_projects/pong/
-- Snake Game: https://8bitbeard.github.io/p5_projects/snake_game/
-- Space Invaders: https://8bitbeard.github.io/p5_projects/space_invaders/
+- Flappy Bird: https://8bitbeard.github.io/p5js_projects_javascript/flappy_bird/
+- Game of Life: https://8bitbeard.github.io/p5js_projects_javascriptgame_of_life/
+- Minesweeper: https://8bitbeard.github.io/p5js_projects_javascript/minesweeper/
+- Pong: https://8bitbeard.github.io/p5js_projects_javascript/pong/
+- Snake Game: https://8bitbeard.github.io/p5js_projects_javascript/snake_game/
+- Space Invaders: https://8bitbeard.github.io/p5js_projects_javascript/space_invaders/
 
 # Side Projects / Study:
-- 7 Segments Display: https://8bitbeard.github.io/p5_projects/7_segments_display/
-- Fireworks: https://8bitbeard.github.io/p5_projects/fireworks/
+- 7 Segments Display: https://8bitbeard.github.io/p5js_projects_javascript/7_segments_display/
+- Fireworks: https://8bitbeard.github.io/p5js_projects_javascript/fireworks/
 
 # Algorithms Visualization:
-- Flocking Simulation: https://8bitbeard.github.io/p5_projects/flocking_simulation/
-- Quadtree: https://8bitbeard.github.io/p5_projects/quadtree/
+- Flocking Simulation: https://8bitbeard.github.io/p5js_projects_javascript/flocking_simulation/
+- Quadtree: https://8bitbeard.github.io/p5js_projects_javascript/quadtree/
